@@ -19,7 +19,16 @@ public abstract class Matrix implements IMatrix {
     }
 
     public int getIndex(int row,int col){
+        if(!validRowCol(row,col))return -1;
         return (row*columns)+col;
+    }
+
+    public boolean validRowCol(int row,int col){
+        return (row >= 0 && row < rows) && (col >= 0 && col < columns);
+    }
+
+    public boolean validIndex(int index){
+        return index >= 0 && index < size;
     }
 
 }

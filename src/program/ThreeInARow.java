@@ -3,11 +3,24 @@ import helper.game.GameMode;
 import helper.game.MultiPlayerGame;
 import helper.game.SinglePlayerGame;
 import helper.io.IOHandler;
+import helper.struct.PassedCheck;
+import helper.struct.SMDateTime;
 
 import java.util.Scanner;
 
 public class ThreeInARow {
     GameMode gameMode;
+    public static PassedCheck funcToCheck;
+
+    public ThreeInARow(){
+        setGlobal();
+    }
+
+    void setGlobal(){
+        SMDateTime.initSMDateTime();
+        ThreeInARow.funcToCheck = new PassedCheck();
+    }
+
     public void runLoop(){
         char input;
         do {

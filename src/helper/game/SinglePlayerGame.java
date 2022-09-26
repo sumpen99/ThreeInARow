@@ -1,7 +1,6 @@
 package helper.game;
-
 import helper.io.IOHandler;
-import helper.player.GamePlayer;
+
 
 public class SinglePlayerGame extends GameMode {
 
@@ -9,7 +8,7 @@ public class SinglePlayerGame extends GameMode {
     public void addPlayers(){
         String name;
         if((validName(name = IOHandler.askForPlayerName(1)))){
-            setPlayerNames(name,"Hal The Computer");
+            setPlayerNames(name,"Hal");
             return;
         }
         addPlayers();
@@ -18,10 +17,21 @@ public class SinglePlayerGame extends GameMode {
     @Override
     public boolean runGame(){
         boolean quit = false;
-        /*while(!quit){
-            IOHandler.welcomePlayers(playerOne.name,playerTwo.name);
+        IOHandler.welcomePlayers(playerOne.name,playerTwo.name);
+        String pos;
+        int index;
+        while(!quit && gameBoard.hasSpace()){
             drawBoard();
-        }*/
+            pos = IOHandler.askForNewPosition(playerOne);
+            if(validBoardPosition(pos,newPos)){
+                gameBoard.setValue(newPos.row, newPos.col,playerOne.marker);
+                drawBoard();
+                if((index=gameBoard.getFreeIndex())!= -1){
+                    IOHandler.askComputerForValue(playerTwo.name);
+                    gameBoard.setValue(index,playerTwo.marker);
+                }
+            }
+        }
         return true;
     }
 }

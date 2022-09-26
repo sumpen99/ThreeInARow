@@ -4,11 +4,20 @@ import helper.io.IOHandler;
 import helper.matrix.GameBoard;
 import helper.matrix.Matrix;
 import helper.player.GamePlayer;
+import helper.struct.BoardPosition;
+
 import static helper.methods.CommonMethods.stringIsInt;
+import static helper.methods.CommonMethods.verifyNewPos;
 
 public abstract class GameMode implements IGameMode {
     GamePlayer playerOne,playerTwo;
-    GameBoard gameBoard;
+    Matrix gameBoard;
+    BoardPosition newPos;
+    int[] tryPos;
+
+    public GameMode(){
+        newPos = new BoardPosition();
+    }
 
     public boolean validName(String name){
         int size = name.length();
@@ -24,7 +33,7 @@ public abstract class GameMode implements IGameMode {
         int boardSize;
         while(((boardSize = stringIsInt(IOHandler.askForBoardSize())) == -1) || !validBoardSize(boardSize));
         gameBoard = new GameBoard(boardSize);
-        drawBoard();
+        //drawBoard();
     }
 
     public boolean validBoardSize(int size){
@@ -33,5 +42,16 @@ public abstract class GameMode implements IGameMode {
 
     public void drawBoard(){
         gameBoard.drawToScreen();
+    }
+
+    public boolean validBoardPosition(String pos,BoardPosition newPos){
+        tryPos = verifyNewPos(pos);
+        int index;
+        if(tryPos != null && gameBoard.validIndex((index=gameBoard.getIndex(tryPos[0],tryPos[1]))) && gameBoard.freeIndex(index)){
+            newPos.row = tryPos[0];
+            newPos.col = tryPos[1];
+            return true;
+        }
+        return false;
     }
 }
