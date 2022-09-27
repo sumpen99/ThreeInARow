@@ -15,5 +15,6 @@ public interface IGameMode {
     void setPlayerNames(String nameOne,String nameTwo);
     void setPlayerList();
     void drawBoard();
-    boolean runGame();
+    void run();
+    void runGame();
 }

@@ -9,26 +9,22 @@ public class MultiPlayerGame extends GameMode{
     public void addPlayers(){
         String nameOne,nameTwo;
         if((validName(nameOne = IOHandler.askForPlayerName(1)))){
-            while(!(validName(nameTwo = IOHandler.askForPlayerName(2)))){}
+            while(!(validName(nameTwo = IOHandler.askForPlayerName(2))));
             setPlayerNames(nameOne,nameTwo);
-            setPlayerList();
             return;
         }
         addPlayers();
     }
 
     @Override
-    public boolean runGame(){
-        boolean quit = false;
+    public void runGame(){
         String pos;
-        while(!quit && gameBoard.hasSpace()){
+        while(!info.quit && gameBoard.hasSpace()){
             drawBoard();
-            pos = IOHandler.askForNewPosition(players[upNext%2]);
+            pos = IOHandler.askForNewPosition(info.players[upNext%2]);
             if(validBoardPosition(pos,newPos)){
-                gameBoard.setValue(newPos.row, newPos.col,players[upNext%2].marker);
-                updateNextIndex();
+                putMarkerOnBoard(newPos.row,newPos.col,info.players[upNext%2].marker);
             }
         }
-        return true;
     }
 }

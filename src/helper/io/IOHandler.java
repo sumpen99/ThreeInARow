@@ -1,6 +1,7 @@
 package helper.io;
 import helper.matrix.GameBoard;
 import helper.player.GamePlayer;
+import helper.struct.GameInfo;
 import helper.struct.SMDateTime;
 import java.io.*;
 import java.util.Scanner;
@@ -93,6 +94,19 @@ public class IOHandler {
         catch(Exception err){
             logToFile(err.getMessage());
         }*/
+    }
+
+    public static void printGameInfo(GameInfo info){
+        if(info.winner){
+            printString("Game Over And We Have A Winner %s\n".formatted(info.lastWinner.name));
+            printString("Current Winning Streak For %s is %d\n".formatted(info.lastWinner.name,info.lastWinner.winStreak));
+        }
+        else printString("Game Over And No We Have A Draw\n");
+        printString("Running Time For Last Game Was %f sec\n".formatted(info.runningTime));
+        printString("Total Games Played For This Session %d sec\n".formatted(info.gamesPlayed));
+        printString("Standings: %s %d Win And %s %d Win\n\n".formatted(info.players[0].name,info.players[0].winStreak,info.players[1].name,info.players[1].winStreak));
+
+
     }
 
     public static String printGameMenu(){

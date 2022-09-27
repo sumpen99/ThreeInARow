@@ -5,20 +5,32 @@ import helper.matrix.GameBoard;
 import helper.matrix.Matrix;
 import helper.player.GamePlayer;
 import helper.struct.BoardPosition;
+import helper.struct.GameInfo;
+import helper.struct.SMDateTime;
 
 import static helper.methods.CommonMethods.stringIsInt;
 import static helper.methods.CommonMethods.verifyNewPos;
 
 public abstract class GameMode implements IGameMode {
-    GamePlayer[] players;
     GamePlayer playerOne,playerTwo;
     Matrix gameBoard;
     BoardPosition newPos;
+    GameInfo info;
     int[] tryPos;
     int upNext;
 
     public GameMode(){
         newPos = new BoardPosition();
+        info = new GameInfo();
+    }
+
+    public void run(){
+        info.timer.startClock();
+        runGame();
+        drawBoard();
+        info.runningTime = info.timer.getTimePassed();
+        info.gamesPlayed++;
+        IOHandler.printGameInfo(info);
     }
 
     public void welcomePlayers(){
@@ -33,20 +45,28 @@ public abstract class GameMode implements IGameMode {
     public void setPlayerNames(String nameOne,String nameTwo){
         playerOne = new GamePlayer(nameOne,1);
         playerTwo = new GamePlayer(nameTwo,2);
+        setPlayerList();
     }
 
     public void setPlayerList(){
-        players = new GamePlayer[]{playerOne,playerTwo};
+        info.players = new GamePlayer[]{playerOne,playerTwo};
     }
 
     public void putMarkerOnBoard(int row,int col,int value){
-        gameBoard.setValue(newPos.row, newPos.col,playerOne.marker);
-        updateNextIndex();
+        putMarkerOnBoard(gameBoard.getIndex(row,col),value);
     }
 
     public void putMarkerOnBoard(int index,int value){
-        gameBoard.setValue(index,playerTwo.marker);
-        updateNextIndex();
+        gameBoard.setValue(index,value);
+        if(gameBoard.findPatter(info.players[upNext%2].marker)){
+            info.lastWinner = info.players[upNext%2];
+            info.winner = true;
+            info.quit = true;
+            info.lastWinner.winStreak++;
+        }
+        else{
+            updateNextIndex();
+        }
     }
 
     public void setBoard(){

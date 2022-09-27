@@ -19,8 +19,7 @@ public class ThreeInARow {
                 gameMode.addPlayers();
                 gameMode.setBoard();
                 gameMode.welcomePlayers();
-                gameMode.runGame();
-                gameMode.drawBoard();
+                gameMode.run();
             }
         }while(!exit(input));
     }

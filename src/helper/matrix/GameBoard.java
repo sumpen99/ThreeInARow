@@ -33,12 +33,6 @@ public class GameBoard extends Matrix{
     }
 
     @Override
-    public void setValue(int row,int col,int value){
-        m[getIndex(row,col)] = value;
-        indexTaken++;
-    }
-
-    @Override
     public void setValue(int index,int value){
         m[index] = value;
         indexTaken++;

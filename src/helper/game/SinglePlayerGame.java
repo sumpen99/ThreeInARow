@@ -15,16 +15,15 @@ public class SinglePlayerGame extends GameMode {
     }
 
     @Override
-    public boolean runGame(){
-        boolean quit = false;
+    public void runGame(){
         String pos;
         int index;
-        while(!quit && gameBoard.hasSpace()){
+        while(!info.quit && gameBoard.hasSpace()){
             drawBoard();
             if(upNext%2==0){
                 pos = IOHandler.askForNewPosition(playerOne);
                 if(validBoardPosition(pos,newPos)){
-                    putMarkerOnBoard(newPos.row, newPos.col,playerOne.marker);
+                    putMarkerOnBoard(newPos.row,newPos.col,playerOne.marker);
                 }
             }
             else{
@@ -34,7 +33,6 @@ public class SinglePlayerGame extends GameMode {
                 }
             }
         }
-        return true;
     }
 
 }
