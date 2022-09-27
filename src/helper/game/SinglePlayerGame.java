@@ -17,21 +17,24 @@ public class SinglePlayerGame extends GameMode {
     @Override
     public boolean runGame(){
         boolean quit = false;
-        IOHandler.welcomePlayers(playerOne.name,playerTwo.name);
         String pos;
         int index;
         while(!quit && gameBoard.hasSpace()){
             drawBoard();
-            pos = IOHandler.askForNewPosition(playerOne);
-            if(validBoardPosition(pos,newPos)){
-                gameBoard.setValue(newPos.row, newPos.col,playerOne.marker);
-                drawBoard();
+            if(upNext%2==0){
+                pos = IOHandler.askForNewPosition(playerOne);
+                if(validBoardPosition(pos,newPos)){
+                    putMarkerOnBoard(newPos.row, newPos.col,playerOne.marker);
+                }
+            }
+            else{
                 if((index=gameBoard.getFreeIndex())!= -1){
                     IOHandler.askComputerForValue(playerTwo.name);
-                    gameBoard.setValue(index,playerTwo.marker);
+                    putMarkerOnBoard(index,playerTwo.marker);
                 }
             }
         }
         return true;
     }
+
 }

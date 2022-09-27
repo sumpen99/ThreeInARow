@@ -6,6 +6,7 @@ public interface IMatrix {
     void setValue(int index,int value);
     int getIndex(int row,int col);
     void drawToScreen();
+    void resetMatrix();
     boolean validRowCol(int row,int col);
     boolean validIndex(int index);
     boolean freeIndex(int index);

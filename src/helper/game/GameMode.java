@@ -10,13 +10,19 @@ import static helper.methods.CommonMethods.stringIsInt;
 import static helper.methods.CommonMethods.verifyNewPos;
 
 public abstract class GameMode implements IGameMode {
+    GamePlayer[] players;
     GamePlayer playerOne,playerTwo;
     Matrix gameBoard;
     BoardPosition newPos;
     int[] tryPos;
+    int upNext;
 
     public GameMode(){
         newPos = new BoardPosition();
+    }
+
+    public void welcomePlayers(){
+        IOHandler.welcomePlayers(playerOne.name,playerTwo.name);
     }
 
     public boolean validName(String name){
@@ -27,6 +33,20 @@ public abstract class GameMode implements IGameMode {
     public void setPlayerNames(String nameOne,String nameTwo){
         playerOne = new GamePlayer(nameOne,1);
         playerTwo = new GamePlayer(nameTwo,2);
+    }
+
+    public void setPlayerList(){
+        players = new GamePlayer[]{playerOne,playerTwo};
+    }
+
+    public void putMarkerOnBoard(int row,int col,int value){
+        gameBoard.setValue(newPos.row, newPos.col,playerOne.marker);
+        updateNextIndex();
+    }
+
+    public void putMarkerOnBoard(int index,int value){
+        gameBoard.setValue(index,playerTwo.marker);
+        updateNextIndex();
     }
 
     public void setBoard(){
@@ -53,5 +73,9 @@ public abstract class GameMode implements IGameMode {
             return true;
         }
         return false;
+    }
+
+    public void updateNextIndex(){
+        upNext++;
     }
 }

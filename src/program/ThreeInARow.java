@@ -10,16 +10,6 @@ import java.util.Scanner;
 
 public class ThreeInARow {
     GameMode gameMode;
-    public static PassedCheck funcToCheck;
-
-    public ThreeInARow(){
-        setGlobal();
-    }
-
-    void setGlobal(){
-        SMDateTime.initSMDateTime();
-        ThreeInARow.funcToCheck = new PassedCheck();
-    }
 
     public void runLoop(){
         char input;
@@ -28,7 +18,9 @@ public class ThreeInARow {
             if(evaluateGameMode(input)){
                 gameMode.addPlayers();
                 gameMode.setBoard();
+                gameMode.welcomePlayers();
                 gameMode.runGame();
+                gameMode.drawBoard();
             }
         }while(!exit(input));
     }

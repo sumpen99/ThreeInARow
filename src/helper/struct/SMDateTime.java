@@ -1,13 +1,11 @@
 package helper.struct;
-import helper.io.IOHandler;
-
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class SMDateTime {
-    private static SMDateTime self = null;
-    private static boolean isSet = false;
+    static SMDateTime self;
+    static boolean isSet;
 
     public SMDateTime(){
         assert !SMDateTime.isSet :"SMDateTime is already set!";
@@ -19,7 +17,6 @@ public class SMDateTime {
     }
 
     public static void initSMDateTime(){
-        self = new SMDateTime();
         if(self == null){
             self = new SMDateTime();
         }

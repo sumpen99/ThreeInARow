@@ -1,5 +1,4 @@
 package helper.matrix;
-
 import helper.enums.Token;
 import helper.io.IOHandler;
 
@@ -19,6 +18,13 @@ public class GameBoard extends Matrix{
     public char getChar(int y,int x){
         int v = getValue(y,x);
         return tokens[v].getChar();
+    }
+
+    @Override
+    public void resetMatrix(){
+        for(int i = 0;i < size;i++){
+            m[i] = 0;
+        }
     }
 
     @Override
