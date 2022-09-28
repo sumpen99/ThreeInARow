@@ -1,5 +1,9 @@
 package helper.enums;
 
+/**
+ * Enum used to traverse Matrix
+ * and find pattern
+ * */
 public enum Direction {
     NORTH,
     SOUTH,

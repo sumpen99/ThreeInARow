@@ -8,6 +8,8 @@ import helper.struct.SMDateTime;
 
 import java.util.Scanner;
 
+import static helper.methods.CommonMethods.evaluateInput;
+
 public class ThreeInARow {
     GameMode gameMode;
 
@@ -26,11 +28,6 @@ public class ThreeInARow {
 
     char startGame(){
         return evaluateInput(IOHandler.printGameMenu());
-    }
-
-    char evaluateInput(String str){
-        if((str = str.trim()).length() == 0)return 0;
-        return str.charAt(0);
     }
 
     boolean evaluateGameMode(char c){

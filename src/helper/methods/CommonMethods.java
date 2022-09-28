@@ -29,4 +29,9 @@ public class CommonMethods {
             return null;
         }
     }
+
+    public static char evaluateInput(String str){
+        if((str = str.trim()).length() == 0)return 0;
+        return str.charAt(0);
+    }
 }

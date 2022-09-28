@@ -3,53 +3,57 @@ import helper.interfaces.IGameMode;
 import helper.io.IOHandler;
 import helper.matrix.GameBoard;
 import helper.matrix.Matrix;
+import helper.player.ComputerPlayer;
 import helper.player.GamePlayer;
+import helper.player.HumanPlayer;
 import helper.struct.BoardPosition;
 import helper.struct.GameInfo;
-import helper.struct.SMDateTime;
-
 import static helper.methods.CommonMethods.stringIsInt;
 import static helper.methods.CommonMethods.verifyNewPos;
 
 public abstract class GameMode implements IGameMode {
-    GamePlayer playerOne,playerTwo;
     Matrix gameBoard;
     BoardPosition newPos;
-    GameInfo info;
-    int[] tryPos;
-    int upNext;
+    GameInfo gameInfo;
 
     public GameMode(){
         newPos = new BoardPosition();
-        info = new GameInfo();
+        gameInfo = new GameInfo();
     }
 
     public void run(){
-        info.timer.startClock();
+        gameInfo.timer.startClock();
         runGame();
         drawBoard();
-        info.runningTime = info.timer.getTimePassed();
-        info.gamesPlayed++;
-        IOHandler.printGameInfo(info);
+        gameInfo.runningTime = gameInfo.timer.getTimePassed();
+        gameInfo.gamesPlayed++;
+        IOHandler.printGameInfo(gameInfo);
+        if(evaluateNewGame(IOHandler.askForNewGame())){
+            resetStateOfSession();
+            run();
+        }
+    }
+
+    public void setPlayers(GamePlayer p1,GamePlayer p2){
+        gameInfo.players = new GamePlayer[]{p1,p2};
+    }
+
+    void resetStateOfSession(){
+        gameBoard.resetMatrix();
+        gameInfo.reset();
+    }
+
+    boolean evaluateNewGame(char c){
+        return c == 'y';
     }
 
     public void welcomePlayers(){
-        IOHandler.welcomePlayers(playerOne.name,playerTwo.name);
+        IOHandler.welcomePlayers(gameInfo);
     }
 
     public boolean validName(String name){
         int size = name.length();
         return size > 0 && size < 255;
-    }
-
-    public void setPlayerNames(String nameOne,String nameTwo){
-        playerOne = new GamePlayer(nameOne,1);
-        playerTwo = new GamePlayer(nameTwo,2);
-        setPlayerList();
-    }
-
-    public void setPlayerList(){
-        info.players = new GamePlayer[]{playerOne,playerTwo};
     }
 
     public void putMarkerOnBoard(int row,int col,int value){
@@ -58,22 +62,14 @@ public abstract class GameMode implements IGameMode {
 
     public void putMarkerOnBoard(int index,int value){
         gameBoard.setValue(index,value);
-        if(gameBoard.findPatter(info.players[upNext%2].marker)){
-            info.lastWinner = info.players[upNext%2];
-            info.winner = true;
-            info.quit = true;
-            info.lastWinner.winStreak++;
-        }
-        else{
-            updateNextIndex();
-        }
+        if(gameBoard.findPatter(gameInfo.getCurrentPlayer().marker)){gameInfo.setWinner();}
+        else{gameInfo.upNext++;}
     }
 
     public void setBoard(){
         int boardSize;
         while(((boardSize = stringIsInt(IOHandler.askForBoardSize())) == -1) || !validBoardSize(boardSize));
         gameBoard = new GameBoard(boardSize);
-        //drawBoard();
     }
 
     public boolean validBoardSize(int size){
@@ -84,8 +80,8 @@ public abstract class GameMode implements IGameMode {
         gameBoard.drawToScreen();
     }
 
-    public boolean validBoardPosition(String pos,BoardPosition newPos){
-        tryPos = verifyNewPos(pos);
+    public boolean validBoardPosition(String pos){
+        int[] tryPos = verifyNewPos(pos);
         int index;
         if(tryPos != null && gameBoard.validIndex((index=gameBoard.getIndex(tryPos[0],tryPos[1]))) && gameBoard.freeIndex(index)){
             newPos.row = tryPos[0];
@@ -95,7 +91,4 @@ public abstract class GameMode implements IGameMode {
         return false;
     }
 
-    public void updateNextIndex(){
-        upNext++;
-    }
 }

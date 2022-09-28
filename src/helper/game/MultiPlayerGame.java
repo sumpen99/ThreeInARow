@@ -1,7 +1,6 @@
 package helper.game;
 import helper.io.IOHandler;
-import helper.player.GamePlayer;
-
+import helper.player.HumanPlayer;
 
 public class MultiPlayerGame extends GameMode{
 
@@ -10,7 +9,7 @@ public class MultiPlayerGame extends GameMode{
         String nameOne,nameTwo;
         if((validName(nameOne = IOHandler.askForPlayerName(1)))){
             while(!(validName(nameTwo = IOHandler.askForPlayerName(2))));
-            setPlayerNames(nameOne,nameTwo);
+            setPlayers(new HumanPlayer(nameOne,1),new HumanPlayer(nameTwo,2));
             return;
         }
         addPlayers();
@@ -19,11 +18,11 @@ public class MultiPlayerGame extends GameMode{
     @Override
     public void runGame(){
         String pos;
-        while(!info.quit && gameBoard.hasSpace()){
+        while(!gameInfo.quit && gameBoard.hasSpace()){
             drawBoard();
-            pos = IOHandler.askForNewPosition(info.players[upNext%2]);
-            if(validBoardPosition(pos,newPos)){
-                putMarkerOnBoard(newPos.row,newPos.col,info.players[upNext%2].marker);
+            pos = IOHandler.askForNewPosition(gameInfo.getCurrentPlayer());
+            if(validBoardPosition(pos)){
+                putMarkerOnBoard(newPos.row,newPos.col,gameInfo.getCurrentPlayer().marker);
             }
         }
     }

@@ -1,7 +1,7 @@
 package helper.matrix;
 import helper.enums.Token;
 import helper.io.IOHandler;
-
+import java.util.Arrays;
 import static helper.methods.CommonMethods.getRandomInt;
 
 public class GameBoard extends Matrix{
@@ -22,9 +22,8 @@ public class GameBoard extends Matrix{
 
     @Override
     public void resetMatrix(){
-        for(int i = 0;i < size;i++){
-            m[i] = 0;
-        }
+        Arrays.fill(m,0);
+        indexTaken = 0;
     }
 
     @Override

@@ -54,14 +54,14 @@ public abstract class Matrix implements IMatrix {
 
     public int searchDirection(int row, int col, int searchNum, int sum, Direction dir){
         if(!validRowCol(row,col) || sum == keyValue || getValue(row,col)!=searchNum)return sum;
-        if(dir == Direction.NORTH)sum = searchDirection(row-1,col,searchNum,sum+1,dir); // NORTH
-        else if(dir == Direction.SOUTH)sum = searchDirection(row+1,col,searchNum,sum+1,dir); // SOUTH
-        else if(dir == Direction.EAST)sum = searchDirection(row,col+1,searchNum,sum+1,dir); // EAST
-        else if(dir == Direction.WEST)sum = searchDirection(row,col-1,searchNum,sum+1,dir); // WEST
-        else if(dir == Direction.NORTH_EAST)sum = searchDirection(row+1,col+1,searchNum,sum+1,dir); // NORTH EAST
+        if(dir == Direction.NORTH)sum = searchDirection(row-1,col,searchNum,sum+1,dir);             // NORTH
+        else if(dir == Direction.SOUTH)sum = searchDirection(row+1,col,searchNum,sum+1,dir);        // SOUTH
+        else if(dir == Direction.EAST)sum = searchDirection(row,col+1,searchNum,sum+1,dir);         // EAST
+        else if(dir == Direction.WEST)sum = searchDirection(row,col-1,searchNum,sum+1,dir);         // WEST
+        else if(dir == Direction.NORTH_EAST)sum = searchDirection(row-1,col+1,searchNum,sum+1,dir); // NORTH EAST
         else if(dir == Direction.NORTH_WEST)sum = searchDirection(row-1,col-1,searchNum,sum+1,dir); // NORTH WEST
-        else if(dir == Direction.SOUTH_EAST)sum = searchDirection(row-1,col+1,searchNum,sum+1,dir); // SOUTH EAST
-        else if(dir == Direction.SOUTH_WEST)sum = searchDirection(row-1,col-1,searchNum,sum+1,dir); // SOUTH WEST
+        else if(dir == Direction.SOUTH_EAST)sum = searchDirection(row+1,col+1,searchNum,sum+1,dir); // SOUTH EAST
+        else if(dir == Direction.SOUTH_WEST)sum = searchDirection(row+1,col-1,searchNum,sum+1,dir); // SOUTH WEST
         return sum;
     }
 

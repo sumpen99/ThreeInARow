@@ -5,6 +5,7 @@ import helper.struct.GameInfo;
 import helper.struct.SMDateTime;
 import java.io.*;
 import java.util.Scanner;
+import static helper.methods.CommonMethods.evaluateInput;
 
 public class IOHandler {
     static IOHandler self;
@@ -96,15 +97,15 @@ public class IOHandler {
         }*/
     }
 
-    public static void printGameInfo(GameInfo info){
-        if(info.winner){
-            printString("Game Over And We Have A Winner %s\n".formatted(info.lastWinner.name));
-            printString("Current Winning Streak For %s is %d\n".formatted(info.lastWinner.name,info.lastWinner.winStreak));
+    public static void printGameInfo(GameInfo gameInfo){
+        if(gameInfo.winner){
+            printString("Game Over And We Have A Winner %s\n".formatted(gameInfo.lastWinner.name));
+            printString("Current Winning Streak For %s is %d\n".formatted(gameInfo.lastWinner.name,gameInfo.lastWinner.winStreak));
         }
         else printString("Game Over And No We Have A Draw\n");
-        printString("Running Time For Last Game Was %f sec\n".formatted(info.runningTime));
-        printString("Total Games Played For This Session %d sec\n".formatted(info.gamesPlayed));
-        printString("Standings: %s %d Win And %s %d Win\n\n".formatted(info.players[0].name,info.players[0].winStreak,info.players[1].name,info.players[1].winStreak));
+        printString("Running Time For Last Game Was %d sec\n".formatted((int)gameInfo.runningTime));
+        printString("Total Games Played For This Session %d\n".formatted(gameInfo.gamesPlayed));
+        printString("Standings: %s %d And %s %d\n\n".formatted(gameInfo.players[0].name,gameInfo.players[0].winStreak,gameInfo.players[1].name,gameInfo.players[1].winStreak));
 
 
     }
@@ -116,10 +117,10 @@ public class IOHandler {
         return self.scannerIn.nextLine();
     }
 
-    public static void welcomePlayers(String nameOne,String nameTwo){
+    public static void welcomePlayers(GameInfo gameInfo){
         System.out.println("Our Contestants Are:");
-        System.out.println(nameOne);
-        System.out.println(nameTwo);
+        System.out.println(gameInfo.players[0].name);
+        System.out.println(gameInfo.players[1].name);
         printString("\n");
     }
 
@@ -127,6 +128,12 @@ public class IOHandler {
         System.out.printf("Enter Name For Player %d%n", index);
         System.out.print("Enter: ");
         return self.scannerIn.nextLine();
+    }
+
+    public static char askForNewGame(){
+        System.out.printf("New Game? (y) (n)\n");
+        System.out.print("Enter: ");
+        return evaluateInput(self.scannerIn.nextLine());
     }
 
     public static String askForNewPosition(GamePlayer player){
@@ -148,7 +155,7 @@ public class IOHandler {
                 break;
             }
 
-        }while(cnt++< 20);
+        }while(cnt++< 15);
         printString("\n");
     }
 
