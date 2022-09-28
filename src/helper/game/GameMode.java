@@ -3,16 +3,14 @@ import helper.interfaces.IGameMode;
 import helper.io.IOHandler;
 import helper.matrix.GameBoard;
 import helper.matrix.Matrix;
-import helper.player.ComputerPlayer;
 import helper.player.GamePlayer;
-import helper.player.HumanPlayer;
 import helper.struct.BoardPosition;
 import helper.struct.GameInfo;
 import static helper.methods.CommonMethods.stringIsInt;
 import static helper.methods.CommonMethods.verifyNewPos;
 
 public abstract class GameMode implements IGameMode {
-    Matrix gameBoard;
+    GameBoard gameBoard;
     BoardPosition newPos;
     GameInfo gameInfo;
 
@@ -61,8 +59,9 @@ public abstract class GameMode implements IGameMode {
     }
 
     public void putMarkerOnBoard(int index,int value){
+        gameInfo.getCurrentPlayer().lastMarkerIndex = index;
         gameBoard.setValue(index,value);
-        if(gameBoard.findPatter(gameInfo.getCurrentPlayer().marker)){gameInfo.setWinner();}
+        if(gameBoard.findWinningPatter(gameInfo.getCurrentPlayer().marker,gameInfo.keyValue)){gameInfo.setWinner();}
         else{gameInfo.upNext++;}
     }
 
@@ -72,8 +71,21 @@ public abstract class GameMode implements IGameMode {
         gameBoard = new GameBoard(boardSize);
     }
 
+    public void setKeyValue(){
+        int keyValue;
+        if(gameBoard.columns == 3){gameInfo.keyValue = 3;}
+        else{
+            while(((keyValue = stringIsInt(IOHandler.askForKeyValue(gameBoard.columns))) == -1) || !validKeyValue(keyValue));
+            gameInfo.keyValue = keyValue;
+        }
+    }
+
     public boolean validBoardSize(int size){
-        return size >= 3 && size <= 64;
+        return size >= 3 && size <= 99;
+    }
+
+    public boolean validKeyValue(int size){
+        return size >= 3 && size <= gameBoard.columns;
     }
 
     public void drawBoard(){

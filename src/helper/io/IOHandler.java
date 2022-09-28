@@ -102,7 +102,7 @@ public class IOHandler {
             printString("Game Over And We Have A Winner %s\n".formatted(gameInfo.lastWinner.name));
             printString("Current Winning Streak For %s is %d\n".formatted(gameInfo.lastWinner.name,gameInfo.lastWinner.winStreak));
         }
-        else printString("Game Over And No We Have A Draw\n");
+        else printString("Game Over And We Have A Draw\n");
         printString("Running Time For Last Game Was %d sec\n".formatted((int)gameInfo.runningTime));
         printString("Total Games Played For This Session %d\n".formatted(gameInfo.gamesPlayed));
         printString("Standings: %s %d And %s %d\n\n".formatted(gameInfo.players[0].name,gameInfo.players[0].winStreak,gameInfo.players[1].name,gameInfo.players[1].winStreak));
@@ -160,7 +160,13 @@ public class IOHandler {
     }
 
     public static String askForBoardSize(){
-        System.out.println("Enter The Size Of Board You Would Like To Play (min 3 max 64)");
+        System.out.println("Enter The Size Of Board You Would Like To Play (min 3 max 99)");
+        System.out.print("Enter: ");
+        return self.scannerIn.nextLine();
+    }
+
+    public static String askForKeyValue(int maxValue){
+        System.out.println("You Can Increase The Game From A Min Of 3 In A Row Up To A Max of %d Markers In A Row".formatted(maxValue));
         System.out.print("Enter: ");
         return self.scannerIn.nextLine();
     }

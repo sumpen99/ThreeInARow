@@ -1,14 +1,14 @@
 package helper.game;
 import helper.io.IOHandler;
-import helper.player.ComputerPlayer;
-import helper.player.HumanPlayer;
+import helper.player.GamePlayer;
+
 public class SinglePlayerGame extends GameMode {
 
     @Override
     public void addPlayers(){
         String name;
         if((validName(name = IOHandler.askForPlayerName(1)))){
-            setPlayers(new HumanPlayer(name,1),new ComputerPlayer("Hal",2));
+            setPlayers(new GamePlayer(name,1),new GamePlayer("Hal",2));
             return;
         }
         addPlayers();
@@ -27,10 +27,11 @@ public class SinglePlayerGame extends GameMode {
                 }
             }
             else{
-                if((index=gameBoard.getFreeIndex())!= -1){
-                    IOHandler.askComputerForValue(gameInfo.getCurrentPlayer().name);
-                    putMarkerOnBoard(index,gameInfo.getCurrentPlayer().marker);
-                }
+                int lastIndex = gameInfo.getCurrentPlayer().lastMarkerIndex;
+                if(lastIndex == -1){index=gameBoard.getFreeIndex();}
+                else index = gameBoard.lookForNewPosition(lastIndex);
+                IOHandler.askComputerForValue(gameInfo.getCurrentPlayer().name);
+                putMarkerOnBoard(index,gameInfo.getCurrentPlayer().marker);
             }
         }
     }

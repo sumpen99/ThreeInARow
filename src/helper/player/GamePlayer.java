@@ -1,10 +1,16 @@
 package helper.player;
 
-public abstract class GamePlayer {
+public class GamePlayer{
     public String name;
-    public int winStreak,marker;
+    public int winStreak,marker,lastMarkerIndex;
     public GamePlayer(String sName,int iMarker){
         name = sName;
         marker = iMarker;
+        lastMarkerIndex = -1;
     }
+
+    public void resetPlayer(){
+        lastMarkerIndex = -1;
+    }
+
 }

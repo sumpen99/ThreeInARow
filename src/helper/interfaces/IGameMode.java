@@ -10,6 +10,8 @@ public interface IGameMode {
     boolean validBoardSize(int size);
     void welcomePlayers();
     boolean validBoardPosition(String pos);
+    void setKeyValue();
+    boolean validKeyValue(int keyValue);
     void setPlayers(GamePlayer p1,GamePlayer p2);
     void drawBoard();
     void run();

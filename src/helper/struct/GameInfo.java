@@ -8,7 +8,7 @@ public class GameInfo {
     public float runningTime;
     public GamePlayer lastWinner;
     public GamePlayer[] players;
-    public int gamesPlayed,upNext;
+    public int keyValue,gamesPlayed,upNext;
     public GameInfo(){
         timer = new SMTimer();
     }
@@ -18,6 +18,7 @@ public class GameInfo {
         quit = false;
         winner = false;
         lastWinner = null;
+        for(int i = 0;i<players.length;i++){players[i].resetPlayer();}
     }
 
     public void setWinner(){
