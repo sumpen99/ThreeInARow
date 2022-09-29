@@ -1,8 +1,10 @@
 package helper.game;
+import helper.ai.MiniMax;
+import helper.ai.RandomIndexTheory;
 import helper.interfaces.IGameMode;
+import helper.interfaces.IGameTheory;
 import helper.io.IOHandler;
 import helper.matrix.GameBoard;
-import helper.matrix.Matrix;
 import helper.player.GamePlayer;
 import helper.struct.BoardPosition;
 import helper.struct.GameInfo;
@@ -13,6 +15,7 @@ public abstract class GameMode implements IGameMode {
     GameBoard gameBoard;
     BoardPosition newPos;
     GameInfo gameInfo;
+    IGameTheory gameTheory;
 
     public GameMode(){
         newPos = new BoardPosition();
@@ -39,6 +42,7 @@ public abstract class GameMode implements IGameMode {
     void resetStateOfSession(){
         gameBoard.resetMatrix();
         gameInfo.reset();
+        gameTheory.reset();
     }
 
     boolean evaluateNewGame(char c){
@@ -69,6 +73,11 @@ public abstract class GameMode implements IGameMode {
         int boardSize;
         while(((boardSize = stringIsInt(IOHandler.askForBoardSize())) == -1) || !validBoardSize(boardSize));
         gameBoard = new GameBoard(boardSize);
+    }
+
+    public void setAiFunc(){
+        if(gameInfo.keyValue == 3)gameTheory = new MiniMax(gameBoard,0,2,1,gameInfo.keyValue);
+        else gameTheory = new RandomIndexTheory(gameBoard);
     }
 
     public void setKeyValue(){

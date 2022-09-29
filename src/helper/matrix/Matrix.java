@@ -11,6 +11,12 @@ public abstract class Matrix implements IMatrix {
         m = new int[size];
     }
 
+    public boolean hasFreeSpace(){
+        int cnt = 0;
+        while(cnt<size)if(m[cnt++] == 0)return true;
+        return false;
+    }
+
     public boolean freeIndex(int index){
         return m[index] == 0;
     }

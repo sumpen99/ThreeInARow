@@ -27,9 +27,7 @@ public class SinglePlayerGame extends GameMode {
                 }
             }
             else{
-                int lastIndex = gameInfo.getCurrentPlayer().lastMarkerIndex;
-                if(lastIndex == -1){index=gameBoard.getFreeIndex();}
-                else index = gameBoard.lookForNewPosition(lastIndex);
+                index = gameTheory.findBestMove();
                 IOHandler.askComputerForValue(gameInfo.getCurrentPlayer().name);
                 putMarkerOnBoard(index,gameInfo.getCurrentPlayer().marker);
             }

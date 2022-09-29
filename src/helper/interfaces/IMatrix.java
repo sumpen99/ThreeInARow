@@ -8,6 +8,7 @@ public interface IMatrix {
     void setValue(int index,int value);
     int getIndex(int row,int col);
     void resetMatrix();
+    boolean hasFreeSpace();
     boolean validRowCol(int row,int col);
     boolean validIndex(int index);
     boolean freeIndex(int index);

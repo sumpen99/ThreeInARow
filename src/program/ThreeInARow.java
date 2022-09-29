@@ -21,6 +21,7 @@ public class ThreeInARow {
                 gameMode.addPlayers();
                 gameMode.setBoard();
                 gameMode.setKeyValue();
+                gameMode.setAiFunc();
                 gameMode.welcomePlayers();
                 gameMode.run();
             }
