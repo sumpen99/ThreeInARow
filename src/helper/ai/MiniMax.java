@@ -4,7 +4,7 @@ import helper.matrix.GameBoard;
 /**
  *
  *  COURTESY OF THE INTERNET
- *  IMPLEMENTATION OF MINIMAX FOR
+ *  IMPLEMENTATION OF MINIMAX
  *
  * */
 public class MiniMax extends GameTheory{

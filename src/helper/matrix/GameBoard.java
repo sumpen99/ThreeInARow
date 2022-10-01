@@ -5,9 +5,6 @@ import helper.io.IOHandler;
 import helper.struct.BoardPosition;
 import java.util.Arrays;
 
-
-
-
 public class GameBoard extends Matrix{
     Token[] tokens = Token.values();
     int indexTaken;
@@ -116,15 +113,17 @@ public class GameBoard extends Matrix{
         return -1;
     }
 
-    public int lookForNewPosition(int markerValueAI,int markerValueOpp,int markersInARow){
+    public int lookForNewPosition(int markersInARow){
         Direction dir;
-        int markersToWin = markersInARow-1,index;
+        int markersToWin = markersInARow-1,marker;
         while(markersToWin >= 1){
             for(int row = 0;row<rows;row++){
                 for(int col = 0;col < columns;col++){
-                    if(((dir = searchValidMoves(row,col,markerValueOpp,markersToWin)) != Direction.UNSPECIFIED) || ((dir = searchValidMoves(row,col,markerValueAI,markersToWin))!= Direction.UNSPECIFIED)){
-                        index = walkInThatDirection(dir,row,col);
-                        if(index != -1)return index;
+                    if(!freeIndex(getIndex(row,col))){
+                        marker = getValue(row,col);
+                        if((dir = searchValidMoves(row,col,marker,markersToWin)) != Direction.UNSPECIFIED){
+                            return walkInThatDirection(dir,row,col);
+                        }
                     }
                 }
             }

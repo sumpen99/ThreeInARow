@@ -1,8 +1,5 @@
 package helper.game;
-import helper.ai.MiniMax;
-import helper.ai.RandomIndexTheory;
 import helper.interfaces.IGameMode;
-import helper.interfaces.IGameTheory;
 import helper.io.IOHandler;
 import helper.matrix.GameBoard;
 import helper.player.GamePlayer;

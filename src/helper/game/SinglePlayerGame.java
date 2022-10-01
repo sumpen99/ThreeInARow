@@ -1,6 +1,6 @@
 package helper.game;
 import helper.ai.MiniMax;
-import helper.ai.RandomIndexTheory;
+import helper.ai.FollowTheory;
 import helper.interfaces.IGameTheory;
 import helper.io.IOHandler;
 import helper.player.GamePlayer;
@@ -27,7 +27,7 @@ public class SinglePlayerGame extends GameMode {
 
     void setAiFunc(){
         if(gameBoard.columns == 3)gameTheory = new MiniMax(gameBoard,0,2,1,3);
-        else gameTheory = new RandomIndexTheory(gameBoard,0,2,1,gameInfo.markersToWin);
+        else gameTheory = new FollowTheory(gameBoard,0,2,1,gameInfo.markersToWin);
     }
 
     @Override
