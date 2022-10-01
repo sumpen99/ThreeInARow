@@ -6,8 +6,8 @@ import helper.matrix.GameBoard;
  *
  * */
 public class FollowTheory extends GameTheory {
-    public FollowTheory(GameBoard gameBoard, int emptycell, int markervalueai, int markervalueopp, int markersinarow){
-        super(gameBoard,emptycell,markervalueai,markervalueopp,markersinarow);
+    public FollowTheory(GameBoard gameBoard, int emptycell, int markervalueai, int markervalueopp, int markersinarow,String cmpName){
+        super(gameBoard,emptycell,markervalueai,markervalueopp,markersinarow,cmpName);
     }
 
     @Override

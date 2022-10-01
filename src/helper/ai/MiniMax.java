@@ -8,8 +8,8 @@ import helper.matrix.GameBoard;
  *
  * */
 public class MiniMax extends GameTheory{
-    public MiniMax(GameBoard gameBoard, int emptycell, int markervalueai, int markervalueopp, int markersinarow){
-        super(gameBoard,emptycell,markervalueai,markervalueopp,markersinarow);
+    public MiniMax(GameBoard gameBoard, int emptycell, int markervalueai, int markervalueopp, int markersinarow,String cmpName){
+        super(gameBoard,emptycell,markervalueai,markervalueopp,markersinarow,cmpName);
     }
 
     int evaluate() {

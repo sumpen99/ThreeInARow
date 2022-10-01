@@ -141,21 +141,18 @@ public class IOHandler {
         return self.scannerIn.nextLine();
     }
 
-    public static void askComputerForValue(String name){
-        int cnt = 0;
+    public static void askComputerForValue(String name) {
         System.out.printf("Your Move %s%n", name);
-        do{
-            printChar('.');
-            try{
-                Thread.sleep(100);
-            }
-            catch(InterruptedException err){
-                logToFile(err.getMessage());
-                break;
-            }
+    }
 
-        }while(cnt++< 15);
-        printString("\n");
+    public static void printDot(){
+        printChar('.');
+        try{
+            Thread.sleep(100);
+        }
+        catch(InterruptedException err){
+            logToFile(err.getMessage());
+        }
     }
 
     public static String askForBoardSize(){

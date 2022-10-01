@@ -7,12 +7,13 @@ import helper.player.GamePlayer;
 
 public class SinglePlayerGame extends GameMode {
     IGameTheory gameTheory;
+    final String cmpName = "Hal";
 
     @Override
     public void addPlayers(){
         String name;
         if((validName(name = IOHandler.askForPlayerName(1)))){
-            setPlayers(new GamePlayer(name,1),new GamePlayer("Hal",2));
+            setPlayers(new GamePlayer(name,1),new GamePlayer(cmpName,2));
             return;
         }
         addPlayers();
@@ -26,8 +27,8 @@ public class SinglePlayerGame extends GameMode {
     }
 
     void setAiFunc(){
-        if(gameBoard.columns == 3)gameTheory = new MiniMax(gameBoard,0,2,1,3);
-        else gameTheory = new FollowTheory(gameBoard,0,2,1,gameInfo.markersToWin);
+        if(gameBoard.columns == 3)gameTheory = new MiniMax(gameBoard,0,2,1,3,cmpName);
+        else gameTheory = new FollowTheory(gameBoard,0,2,1,gameInfo.markersToWin,cmpName);
     }
 
     @Override
@@ -41,9 +42,8 @@ public class SinglePlayerGame extends GameMode {
                 if(validBoardPosition(pos)){putMarkerOnBoard(newPos.row,newPos.col,gameInfo.getCurrentPlayer().marker);}
             }
             else{
-                index = gameTheory.findBestMove();
-                IOHandler.askComputerForValue(gameInfo.getCurrentPlayer().name);
-                putMarkerOnBoard(index,gameInfo.getCurrentPlayer().marker);
+                gameTheory.runAlgorithm();
+                putMarkerOnBoard(gameTheory.getNewIndex(),gameInfo.getCurrentPlayer().marker);
             }
         }
     }
