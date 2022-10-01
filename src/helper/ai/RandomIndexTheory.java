@@ -1,25 +1,17 @@
 package helper.ai;
 import helper.matrix.GameBoard;
 
-
+/**
+ *  HAHAHA
+ *
+ * */
 public class RandomIndexTheory extends GameTheory {
-    int lastIndex;
-    public RandomIndexTheory(GameBoard gameBoard){
-        super(gameBoard);
-        lastIndex = -1;
-    }
-
-    @Override
-    public void reset(){
-        lastIndex = -1;
+    public RandomIndexTheory(GameBoard gameBoard, int emptycell, int markervalueai, int markervalueopp, int markersinarow){
+        super(gameBoard,emptycell,markervalueai,markervalueopp,markersinarow);
     }
 
     @Override
     public int findBestMove(){
-        int index;
-        if(lastIndex == -1){index=board.getFreeIndex();}
-        else index = board.lookForNewPosition(lastIndex);
-        lastIndex = index;
-        return index;
+        return board.lookForNewPosition(markerValueAI,markerValueOpp,markersInARow);
     }
 }

@@ -1,8 +1,12 @@
 package helper.game;
+import helper.ai.MiniMax;
+import helper.ai.RandomIndexTheory;
+import helper.interfaces.IGameTheory;
 import helper.io.IOHandler;
 import helper.player.GamePlayer;
 
 public class SinglePlayerGame extends GameMode {
+    IGameTheory gameTheory;
 
     @Override
     public void addPlayers(){
@@ -15,6 +19,18 @@ public class SinglePlayerGame extends GameMode {
     }
 
     @Override
+    public void setMarkersToWin(){
+        setMarkersToWinValue();
+        setAiFunc();
+
+    }
+
+    void setAiFunc(){
+        if(gameBoard.columns == 3)gameTheory = new MiniMax(gameBoard,0,2,1,3);
+        else gameTheory = new RandomIndexTheory(gameBoard,0,2,1,gameInfo.markersToWin);
+    }
+
+    @Override
     public void runGame(){
         String pos;
         int index;
@@ -22,9 +38,7 @@ public class SinglePlayerGame extends GameMode {
             drawBoard();
             if(gameInfo.getIndex()==0){
                 pos = IOHandler.askForNewPosition(gameInfo.getCurrentPlayer());
-                if(validBoardPosition(pos)){
-                    putMarkerOnBoard(newPos.row,newPos.col,gameInfo.getCurrentPlayer().marker);
-                }
+                if(validBoardPosition(pos)){putMarkerOnBoard(newPos.row,newPos.col,gameInfo.getCurrentPlayer().marker);}
             }
             else{
                 index = gameTheory.findBestMove();

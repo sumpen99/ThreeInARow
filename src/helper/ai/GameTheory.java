@@ -6,12 +6,14 @@ import helper.struct.BoardPosition;
 public abstract class GameTheory implements IGameTheory {
     GameBoard board;
     BoardPosition bestPos;
-
-    public GameTheory(GameBoard gameBoard){
+    int emptyCell,markerValueAI,markerValueOpp,markersInARow;
+    public GameTheory(GameBoard gameBoard,int emptycell, int markervalueai, int markervalueopp, int markersinarow){
         board = gameBoard;
         bestPos = new BoardPosition();
+        emptyCell = emptycell;
+        markerValueAI = markervalueai;
+        markerValueOpp = markervalueopp;
+        markersInARow = markersinarow;
     }
-
-    public void reset(){}
 
 }

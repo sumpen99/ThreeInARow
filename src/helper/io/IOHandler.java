@@ -99,13 +99,12 @@ public class IOHandler {
 
     public static void printGameInfo(GameInfo gameInfo){
         if(gameInfo.winner){
-            printString("Game Over And We Have A Winner %s\n".formatted(gameInfo.lastWinner.name));
-            printString("Current Winning Streak For %s is %d\n".formatted(gameInfo.lastWinner.name,gameInfo.lastWinner.winStreak));
+            printString("Game Over And We Have A Winner  :: %s\n".formatted(gameInfo.lastWinner.name));
         }
         else printString("Game Over And We Have A Draw\n");
-        printString("Running Time For Last Game Was %d sec\n".formatted((int)gameInfo.runningTime));
-        printString("Total Games Played For This Session %d\n".formatted(gameInfo.gamesPlayed));
-        printString("Standings: %s %d And %s %d\n\n".formatted(gameInfo.players[0].name,gameInfo.players[0].winStreak,gameInfo.players[1].name,gameInfo.players[1].winStreak));
+        printString("Running Time For Last Game      :: %d sec\n".formatted((int)gameInfo.runningTime));
+        printString("Games Played For This Session   :: %d\n".formatted(gameInfo.gamesPlayed));
+        printString("Standings:\n%s :: %d\n%s :: %d\n\n".formatted(gameInfo.players[0].name,gameInfo.players[0].winStreak,gameInfo.players[1].name,gameInfo.players[1].winStreak));
 
 
     }
@@ -160,7 +159,7 @@ public class IOHandler {
     }
 
     public static String askForBoardSize(){
-        System.out.println("Enter The Size Of Board You Would Like To Play (min 3 max 99)");
+        System.out.println("Enter The Size Of Board You Would Like To Play (min 3 max 11)");
         System.out.print("Enter: ");
         return self.scannerIn.nextLine();
     }

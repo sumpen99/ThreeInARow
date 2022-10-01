@@ -8,7 +8,7 @@ public class GameInfo {
     public float runningTime;
     public GamePlayer lastWinner;
     public GamePlayer[] players;
-    public int keyValue,gamesPlayed,upNext;
+    public int markersToWin,gamesPlayed,upNext;
     public GameInfo(){
         timer = new SMTimer();
     }

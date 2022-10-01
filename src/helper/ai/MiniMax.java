@@ -1,17 +1,15 @@
 package helper.ai;
-import helper.io.IOHandler;
 import helper.matrix.GameBoard;
-import helper.struct.BoardPosition;
 
+/**
+ *
+ *  COURTESY OF THE INTERNET
+ *  IMPLEMENTATION OF MINIMAX FOR
+ *
+ * */
 public class MiniMax extends GameTheory{
-    int emptyCell,markerValueAI,markerValueOpp,markersInARow;
     public MiniMax(GameBoard gameBoard, int emptycell, int markervalueai, int markervalueopp, int markersinarow){
-        super(gameBoard);
-        emptyCell = emptycell;
-        markerValueAI = markervalueai;
-        markerValueOpp = markervalueopp;
-        board = gameBoard;
-        markersInARow = markersinarow;
+        super(gameBoard,emptycell,markervalueai,markervalueopp,markersinarow);
     }
 
     int evaluate() {

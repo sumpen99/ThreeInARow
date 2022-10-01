@@ -16,6 +16,11 @@ public class MultiPlayerGame extends GameMode{
     }
 
     @Override
+    public void setMarkersToWin(){
+        setMarkersToWinValue();
+    }
+
+    @Override
     public void runGame(){
         String pos;
         while(!gameInfo.quit && gameBoard.hasSpace()){

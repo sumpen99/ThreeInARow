@@ -20,8 +20,7 @@ public class ThreeInARow {
             if(evaluateGameMode(input)){
                 gameMode.addPlayers();
                 gameMode.setBoard();
-                gameMode.setKeyValue();
-                gameMode.setAiFunc();
+                gameMode.setMarkersToWin();
                 gameMode.welcomePlayers();
                 gameMode.run();
             }

@@ -15,7 +15,6 @@ public abstract class GameMode implements IGameMode {
     GameBoard gameBoard;
     BoardPosition newPos;
     GameInfo gameInfo;
-    IGameTheory gameTheory;
 
     public GameMode(){
         newPos = new BoardPosition();
@@ -35,14 +34,13 @@ public abstract class GameMode implements IGameMode {
         }
     }
 
-    public void setPlayers(GamePlayer p1,GamePlayer p2){
-        gameInfo.players = new GamePlayer[]{p1,p2};
-    }
-
-    void resetStateOfSession(){
+    public void resetStateOfSession(){
         gameBoard.resetMatrix();
         gameInfo.reset();
-        gameTheory.reset();
+    }
+
+    public void setPlayers(GamePlayer p1,GamePlayer p2){
+        gameInfo.players = new GamePlayer[]{p1,p2};
     }
 
     boolean evaluateNewGame(char c){
@@ -65,7 +63,7 @@ public abstract class GameMode implements IGameMode {
     public void putMarkerOnBoard(int index,int value){
         gameInfo.getCurrentPlayer().lastMarkerIndex = index;
         gameBoard.setValue(index,value);
-        if(gameBoard.findWinningPatter(gameInfo.getCurrentPlayer().marker,gameInfo.keyValue)){gameInfo.setWinner();}
+        if(gameBoard.findWinningPatter(gameInfo.getCurrentPlayer().marker,gameInfo.markersToWin)){gameInfo.setWinner();}
         else{gameInfo.upNext++;}
     }
 
@@ -75,22 +73,17 @@ public abstract class GameMode implements IGameMode {
         gameBoard = new GameBoard(boardSize);
     }
 
-    public void setAiFunc(){
-        if(gameInfo.keyValue == 3)gameTheory = new MiniMax(gameBoard,0,2,1,gameInfo.keyValue);
-        else gameTheory = new RandomIndexTheory(gameBoard);
-    }
-
-    public void setKeyValue(){
+    public void setMarkersToWinValue(){
         int keyValue;
-        if(gameBoard.columns == 3){gameInfo.keyValue = 3;}
+        if(gameBoard.columns == 3){gameInfo.markersToWin = 3;}
         else{
             while(((keyValue = stringIsInt(IOHandler.askForKeyValue(gameBoard.columns))) == -1) || !validKeyValue(keyValue));
-            gameInfo.keyValue = keyValue;
+            gameInfo.markersToWin = keyValue;
         }
     }
 
     public boolean validBoardSize(int size){
-        return size >= 3 && size <= 99;
+        return size >= 3 && size <= 11;
     }
 
     public boolean validKeyValue(int size){
