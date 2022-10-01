@@ -3,15 +3,10 @@ import helper.enums.Direction;
 import helper.enums.Token;
 import helper.io.IOHandler;
 import helper.struct.BoardPosition;
+import helper.struct.MinMaxPos;
+
 import java.util.Arrays;
 
-/**
- *
- *  THE NEED FOR A ABSTRACT CLASS MATRIX IS NOT NEEDED
- *  BUT YOU GET RID OF ALOT OF FUNCTIONS AND YOU NEVER NOW
- *  IN WICH DIRECTION A PROGRAM FOLLOWS
- *
- * */
 public class GameBoard extends Matrix{
     Token[] tokens = Token.values();
     int indexTaken;
@@ -23,25 +18,34 @@ public class GameBoard extends Matrix{
         newPos = new BoardPosition();
     }
 
+    /**
+     * Prints current state of the matrix to the console
+     * */
     public void drawToScreen(){
         IOHandler.printCurrentBoard(this);
     }
 
+    /**
+     * Returns the char value corresponding to the value put into the matrix (0 = " ", 1 = O, 2 = X)
+     * */
     public char getChar(int y,int x){
         int v = getValue(y,x);
         return tokens[v].getChar();
     }
 
+    /**
+     * If the matrix has free space,
+     * */
     public boolean hasSpace(){
         return indexTaken < size;
     }
 
     /**
-     * SEARCH-METHOD TO FIND A END-GAME
-     * CALLS searchDirection WICH IS A RECURSIVE FUNCTION THAT KEEPS GOING
-     * UNTIL A NUMBER OF DIFFERENT CRITERIA IS MET
-     * IF WE FIND THE AMOUNT OF MARKERS-IN-A-ROW WE ARE LOOKING FOR
-     * IT RETURNS TRUE. ELSE FALSE
+     * Search method to find a end game
+     * Calls searchDirection wich is a recursive function thet keeps going
+     * until a number of different criteria is met.
+     * If we find the amount of markers in a row we are looking for it
+     * return true. else false
      * */
     public boolean searchMatrix(int row,int col,int markerValue,int markersInARow){
         int sum;
@@ -66,8 +70,8 @@ public class GameBoard extends Matrix{
 
 
     /**
-     * INDEED IT LOOKS ALOT LIKE searchMatrix AND WITH SOME MODIFICATIONS YOU COULD PROBABLY
-     * REMOVE THIS ONE. BUT FOR NOW ITS EASIER TO HAVE JUST BOTH
+     * Indeed it looks alot like searchMatrix and with some modifications you could probably
+     * remove this one. But for now its easier to have both
      * */
     public boolean searchValidMoves(int row,int col,int markerValue,int markersInARow){
         int sum;
@@ -91,7 +95,7 @@ public class GameBoard extends Matrix{
     }
 
     /**
-     * RECURSIVE SEARCH METHOD TO LOOK IN THE DIRECTION SPECIFIED
+     * Recursive search method to look in the direction specified
      * */
     public int searchDirection(int row, int col, int markerValue, int sum, Direction dir,int markersInARow){
         newPos.setValue(row,col,validRowCol(row,col));
@@ -108,7 +112,7 @@ public class GameBoard extends Matrix{
     }
 
     /**
-     * STARTING POINT FOR MINIMAXTHEORY
+     * Starting point for minimaxtheory
      * */
     public boolean findWinningPatter(int markerValue,int markersInARow){
         int row = 0,col;
@@ -123,37 +127,29 @@ public class GameBoard extends Matrix{
     }
 
     /**
-     * STARTING POINT FOR FOLLOWTHEORY
+     * Starting point for the followtheory algorithm
+     * Its simplistic and searches for the the pattern with
+     * most markers in a row/line/diagonal. It doesnt matter
+     * wich player has it but when found it follows
+     * by putting a marker next to it.
      * */
-    public int lookForNewPosition(int markersInARow){
+    public void lookForNewPosition(int markersInARow, int markerToCheck, int bestMove, MinMaxPos bestPos){
         int markersToWin = markersInARow-1,marker;
-        while(markersToWin >= 1){
+        outer: while(markersToWin >= 1 && markersToWin > bestMove){
             for(int row = 0;row<rows;row++){
                 for(int col = 0;col < columns;col++){
-                    if(!freeIndex(getIndex(row,col))){
-                        marker = getValue(row,col);
+                    marker = getValue(row,col);
+                    if(marker == markerToCheck){
                         if(searchValidMoves(row,col,marker,markersToWin)){
-                            return getIndex(newPos.row,newPos.col);
+                            bestPos.index = getIndex(newPos.row,newPos.col);
+                            bestPos.valueHigh = markersToWin;
+                            break outer;
                         }
                     }
                 }
             }
             markersToWin--;
         }
-        return fallbackOption();
-    }
-
-    /**
-     * WE SHOULD NEVER HIT THIS ONE
-     * BUT IF WE DO, THIS KEEPS THE PROGRAM FROM CRASHING
-     * */
-    public int fallbackOption(){
-        for(int row = 0;row<rows;row++){
-            for(int col = 0;col < columns;col++){
-                if(freeIndex(getIndex(row,col)))return getIndex(row,col);
-            }
-        }
-        return 0;
     }
 
     @Override

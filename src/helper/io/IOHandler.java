@@ -2,6 +2,7 @@ package helper.io;
 import helper.matrix.GameBoard;
 import helper.player.GamePlayer;
 import helper.struct.GameInfo;
+import helper.struct.MinMaxPos;
 import helper.struct.SMDateTime;
 import java.io.*;
 import java.util.Scanner;
@@ -223,5 +224,9 @@ public class IOHandler {
         printCellStart();
         while(cnt++ < size){printChar('-');}
         printString("\n");
+    }
+
+    public static void printMinMaxPos(MinMaxPos pos){
+        printString("Index: %d HighestValue: %d".formatted(pos.index,pos.valueHigh));
     }
 }

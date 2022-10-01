@@ -4,6 +4,7 @@ import helper.ai.FollowTheory;
 import helper.interfaces.IGameTheory;
 import helper.io.IOHandler;
 import helper.player.GamePlayer;
+import helper.threading.ThreadHandler;
 
 public class SinglePlayerGame extends GameMode {
     IGameTheory gameTheory;
@@ -34,7 +35,6 @@ public class SinglePlayerGame extends GameMode {
     @Override
     public void runGame(){
         String pos;
-        int index;
         while(!gameInfo.quit && gameBoard.hasSpace()){
             drawBoard();
             if(gameInfo.getIndex()==0){

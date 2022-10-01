@@ -22,17 +22,41 @@ public abstract class GameTheory implements IGameTheory, IThreading {
         computerName = cmpName;
     }
 
+    /**
+     * Incase the algorithm implemented runs slow
+     * we do it in a second thread whilst printing thinking
+     * process to the output. If it finish fast the function
+     * simulates some thinking
+     * */
     public void runAlgorithm(){
+        ThreadHandler.executeNewThread(this);
+        startThinkingProcess();
+        try{
+            ThreadHandler.t1.join();
+        }
+        catch(InterruptedException err){
+            IOHandler.logToFile(err.getMessage());
+        }
+    }
+
+    /**
+     * Printing dots to the terminal until the algorithm is done
+     * or until we count to 15 (* thread.sleep(100))
+     * */
+    void startThinkingProcess(){
         int cnt = 0;
         IOHandler.askComputerForValue(computerName);
-        ThreadHandler.executeNewThread(this);
         while(runAiLoop || cnt++ < 15){IOHandler.printDot();}
-        try{ThreadHandler.t1.join();}
-        catch(InterruptedException err){IOHandler.logToFile(err.getMessage());}
         IOHandler.printString("\n");
     }
 
-    public void heavyDuty(){newIndex = findBestMove();}
+    /**
+     *  the function executed from threadhandler and
+     *  by classes implementing IThreading
+     * */
+    public void heavyDuty(){
+        newIndex = findBestMove();
+    }
 
     public void startLoop(){runAiLoop = true;}
 
