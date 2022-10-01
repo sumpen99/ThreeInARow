@@ -5,6 +5,13 @@ import helper.io.IOHandler;
 import helper.struct.BoardPosition;
 import java.util.Arrays;
 
+/**
+ *
+ *  THE NEED FOR A ABSTRACT CLASS MATRIX IS NOT NEEDED
+ *  BUT YOU GET RID OF ALOT OF FUNCTIONS AND YOU NEVER NOW
+ *  IN WICH DIRECTION A PROGRAM FOLLOWS
+ *
+ * */
 public class GameBoard extends Matrix{
     Token[] tokens = Token.values();
     int indexTaken;
@@ -29,6 +36,13 @@ public class GameBoard extends Matrix{
         return indexTaken < size;
     }
 
+    /**
+     * SEARCH-METHOD TO FIND A END-GAME
+     * CALLS searchDirection WICH IS A RECURSIVE FUNCTION THAT KEEPS GOING
+     * UNTIL A NUMBER OF DIFFERENT CRITERIA IS MET
+     * IF WE FIND THE AMOUNT OF MARKERS-IN-A-ROW WE ARE LOOKING FOR
+     * IT RETURNS TRUE. ELSE FALSE
+     * */
     public boolean searchMatrix(int row,int col,int markerValue,int markersInARow){
         int sum;
         sum = searchDirection(row,col,markerValue,0, Direction.NORTH,markersInARow);
@@ -50,6 +64,11 @@ public class GameBoard extends Matrix{
         return false;
     }
 
+
+    /**
+     * INDEED IT LOOKS ALOT LIKE searchMatrix AND WITH SOME MODIFICATIONS YOU COULD PROBABLY
+     * REMOVE THIS ONE. BUT FOR NOW ITS EASIER TO HAVE JUST BOTH
+     * */
     public boolean searchValidMoves(int row,int col,int markerValue,int markersInARow){
         int sum;
         sum = searchDirection(row,col,markerValue,0, Direction.NORTH,markersInARow);
@@ -71,6 +90,9 @@ public class GameBoard extends Matrix{
         return false;
     }
 
+    /**
+     * RECURSIVE SEARCH METHOD TO LOOK IN THE DIRECTION SPECIFIED
+     * */
     public int searchDirection(int row, int col, int markerValue, int sum, Direction dir,int markersInARow){
         newPos.setValue(row,col,validRowCol(row,col));
         if(!newPos.validMove || sum == markersInARow || getValue(row,col)!=markerValue)return sum;
@@ -85,6 +107,9 @@ public class GameBoard extends Matrix{
         return sum;
     }
 
+    /**
+     * STARTING POINT FOR MINIMAXTHEORY
+     * */
     public boolean findWinningPatter(int markerValue,int markersInARow){
         int row = 0,col;
         for(;row<rows;row++){
@@ -97,6 +122,9 @@ public class GameBoard extends Matrix{
         return false;
     }
 
+    /**
+     * STARTING POINT FOR FOLLOWTHEORY
+     * */
     public int lookForNewPosition(int markersInARow){
         int markersToWin = markersInARow-1,marker;
         while(markersToWin >= 1){
@@ -115,6 +143,10 @@ public class GameBoard extends Matrix{
         return fallbackOption();
     }
 
+    /**
+     * WE SHOULD NEVER HIT THIS ONE
+     * BUT IF WE DO, THIS KEEPS THE PROGRAM FROM CRASHING
+     * */
     public int fallbackOption(){
         for(int row = 0;row<rows;row++){
             for(int col = 0;col < columns;col++){
