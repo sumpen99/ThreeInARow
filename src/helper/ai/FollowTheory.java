@@ -2,7 +2,7 @@ package helper.ai;
 import helper.matrix.GameBoard;
 
 /**
- *  
+ *
  *
  * */
 public class FollowTheory extends GameTheory {

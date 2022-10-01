@@ -29,46 +29,46 @@ public class GameBoard extends Matrix{
         return indexTaken < size;
     }
 
-    public Direction searchMatrix(int row,int col,int markerValue,int markersInARow){
+    public boolean searchMatrix(int row,int col,int markerValue,int markersInARow){
         int sum;
         sum = searchDirection(row,col,markerValue,0, Direction.NORTH,markersInARow);
-        if(sum == markersInARow)return Direction.NORTH;
+        if(sum == markersInARow)return true;
         sum = searchDirection(row,col,markerValue,0,Direction.SOUTH,markersInARow);
-        if(sum == markersInARow)return Direction.SOUTH;
+        if(sum == markersInARow)return true;
         sum = searchDirection(row,col,markerValue,0,Direction.EAST,markersInARow);
-        if(sum == markersInARow)return Direction.EAST;
+        if(sum == markersInARow)return true;
         sum = searchDirection(row,col,markerValue,0,Direction.WEST,markersInARow);
-        if(sum == markersInARow)return Direction.WEST;
+        if(sum == markersInARow)return true;
         sum = searchDirection(row,col,markerValue,0,Direction.NORTH_EAST,markersInARow);
-        if(sum == markersInARow)return Direction.NORTH_EAST;
+        if(sum == markersInARow)return true;
         sum = searchDirection(row,col,markerValue,0,Direction.NORTH_WEST,markersInARow);
-        if(sum == markersInARow)return Direction.NORTH_WEST;
+        if(sum == markersInARow)return true;
         sum = searchDirection(row,col,markerValue,0,Direction.SOUTH_EAST,markersInARow);
-        if(sum == markersInARow)return Direction.SOUTH_EAST;
+        if(sum == markersInARow)return true;
         sum = searchDirection(row,col,markerValue,0,Direction.SOUTH_WEST,markersInARow);
-        if(sum == markersInARow)return Direction.SOUTH_WEST;
-        return Direction.UNSPECIFIED;
+        if(sum == markersInARow)return true;
+        return false;
     }
 
-    public Direction searchValidMoves(int row,int col,int markerValue,int markersInARow){
+    public boolean searchValidMoves(int row,int col,int markerValue,int markersInARow){
         int sum;
         sum = searchDirection(row,col,markerValue,0, Direction.NORTH,markersInARow);
-        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return Direction.NORTH;
+        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return true;
         sum = searchDirection(row,col,markerValue,0,Direction.SOUTH,markersInARow);
-        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return Direction.SOUTH;
+        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return true;
         sum = searchDirection(row,col,markerValue,0,Direction.EAST,markersInARow);
-        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return Direction.EAST;
+        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return true;
         sum = searchDirection(row,col,markerValue,0,Direction.WEST,markersInARow);
-        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return Direction.WEST;
+        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return true;
         sum = searchDirection(row,col,markerValue,0,Direction.NORTH_EAST,markersInARow);
-        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return Direction.NORTH_EAST;
+        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return true;
         sum = searchDirection(row,col,markerValue,0,Direction.NORTH_WEST,markersInARow);
-        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return Direction.NORTH_WEST;
+        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return true;
         sum = searchDirection(row,col,markerValue,0,Direction.SOUTH_EAST,markersInARow);
-        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return Direction.SOUTH_EAST;
+        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return true;
         sum = searchDirection(row,col,markerValue,0,Direction.SOUTH_WEST,markersInARow);
-        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return Direction.SOUTH_WEST;
-        return Direction.UNSPECIFIED;
+        if((sum == markersInARow && newPos.validMove) && freeIndex(getIndex(newPos.row,newPos.col)))return true;
+        return false;
     }
 
     public int searchDirection(int row, int col, int markerValue, int sum, Direction dir,int markersInARow){
@@ -90,46 +90,38 @@ public class GameBoard extends Matrix{
         for(;row<rows;row++){
             for(col = 0;col < columns;col++){
                 if(m[getIndex(row,col)] == markerValue){
-                    if(searchMatrix(row,col,markerValue,markersInARow) != Direction.UNSPECIFIED)return true;
+                    if(searchMatrix(row,col,markerValue,markersInARow))return true;
                 }
             }
         }
         return false;
     }
 
-    public int walkInThatDirection(Direction dir,int row,int col){
-        int index;
-        while(validIndex((index=getIndex(row,col)))){
-            if(freeIndex(index))return index;
-            if(dir == Direction.NORTH)row--;                   // NORTH
-            else if(dir == Direction.SOUTH)row++;              // SOUTH
-            else if(dir == Direction.EAST)col++;               // EAST
-            else if(dir == Direction.WEST)col--;               // WEST
-            else if(dir == Direction.NORTH_EAST){row--;col++;} // NORTH EAST
-            else if(dir == Direction.NORTH_WEST){row--;col--;} // NORTH WEST
-            else if(dir == Direction.SOUTH_EAST){row++;col++;} // SOUTH EAST
-            else if(dir == Direction.SOUTH_WEST){row++;col--;} // SOUTH WEST
-        }
-        return -1;
-    }
-
     public int lookForNewPosition(int markersInARow){
-        Direction dir;
         int markersToWin = markersInARow-1,marker;
         while(markersToWin >= 1){
             for(int row = 0;row<rows;row++){
                 for(int col = 0;col < columns;col++){
                     if(!freeIndex(getIndex(row,col))){
                         marker = getValue(row,col);
-                        if((dir = searchValidMoves(row,col,marker,markersToWin)) != Direction.UNSPECIFIED){
-                            return walkInThatDirection(dir,row,col);
+                        if(searchValidMoves(row,col,marker,markersToWin)){
+                            return getIndex(newPos.row,newPos.col);
                         }
                     }
                 }
             }
             markersToWin--;
         }
-        return -1;
+        return fallbackOption();
+    }
+
+    public int fallbackOption(){
+        for(int row = 0;row<rows;row++){
+            for(int col = 0;col < columns;col++){
+                if(freeIndex(getIndex(row,col)))return getIndex(row,col);
+            }
+        }
+        return 0;
     }
 
     @Override
