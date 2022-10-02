@@ -8,7 +8,9 @@ import helper.player.GamePlayer;
  * */
 public class MultiPlayerGame extends GameMode{
 
-    @Override
+    /**
+     * loop until we get two legit names
+     * */
     public void addPlayers(){
         String nameOne,nameTwo;
         if((validName(nameOne = IOHandler.askForPlayerName(1)))){
@@ -19,7 +21,9 @@ public class MultiPlayerGame extends GameMode{
         addPlayers();
     }
 
-    @Override
+    /**
+     * call base function of asking user of Markers-In-A-Row to win the game
+     * */
     public void setMarkersToWin(){
         setMarkersToWinValue();
     }
@@ -29,7 +33,6 @@ public class MultiPlayerGame extends GameMode{
      * User can at any point type quit to exit
      * If that doesnt happen we take turns to put a marker on the board player vs player
      * */
-    @Override
     public void runGame(){
         String pos;
         while(!gameInfo.quit && gameBoard.hasSpace()){

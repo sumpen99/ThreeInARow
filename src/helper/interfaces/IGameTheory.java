@@ -1,8 +1,7 @@
 package helper.interfaces;
 
 /**
- * Interace implemented by MiniMaxTheory and FollowTheory
- * Only one method to override
+ * Interface implemented by MiniMaxTheory and FollowTheory
  * */
 public interface IGameTheory {
     int findBestMove();

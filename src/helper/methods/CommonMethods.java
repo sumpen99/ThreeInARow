@@ -4,12 +4,12 @@ import helper.struct.PassedCheck;
 
 /**
  * Class to handle some methods
- * we can use on different places in the program
+ * we use on different places in the program
  * */
 public class CommonMethods {
 
     /**
-     * returns random int with a maxValue
+     * returns random int with a maxValue as modulus
      * */
     public static int getRandomInt(int maxValue){
         double val = Math.random()*1000;

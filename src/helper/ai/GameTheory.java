@@ -6,10 +6,9 @@ import helper.matrix.GameBoard;
 import helper.struct.BoardPosition;
 import helper.threading.ThreadHandler;
 
-
 /**
  * Abstract class to steer the computer. Extended by MiniMaxTheory and FollowTheory
- * Implements Ithreading
+ * Implements Ithreading which runs findbestmove in a seperate thread
  * */
 public abstract class GameTheory implements IGameTheory, IThreading {
     GameBoard board;
@@ -63,10 +62,20 @@ public abstract class GameTheory implements IGameTheory, IThreading {
         newIndex = findBestMove();
     }
 
+    /**
+     * sets one condition inside startThinkingProcess to true
+     * */
     public void startLoop(){runAiLoop = true;}
 
+    /**
+     * sets one condition inside startThinkingProcess to false
+     * if the algorithm runs fast the loop keep going until we hit 15 counts
+     * */
     public void closeLoop(){runAiLoop = false;}
 
+    /**
+     * returens the index findBestMove got for us
+     * */
     public int getNewIndex(){return newIndex;}
 
 }

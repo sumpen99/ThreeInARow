@@ -20,7 +20,6 @@ public class FollowTheory extends GameTheory {
      * cant bet that value it will be the computers next move, else it follows user path
      * if no marker is on the board it places it in the middle
      * */
-    @Override
     public int findBestMove(){
         bestPos.reset();
         if(board.getCurrentMarkersCount() == 0){return board.getIndex(board.rows/2,board.columns/2);}

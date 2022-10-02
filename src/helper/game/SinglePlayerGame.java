@@ -12,7 +12,10 @@ public class SinglePlayerGame extends GameMode {
     GameTheory gameTheory;
     final String cmpName = "Hal";
 
-    @Override
+    /**
+     * loop until we get a valid name
+     * sets the compute rinstance after that
+     * */
     public void addPlayers(){
         String name;
         if((validName(name = IOHandler.askForPlayerName(1)))){
@@ -22,7 +25,10 @@ public class SinglePlayerGame extends GameMode {
         addPlayers();
     }
 
-    @Override
+    /**
+     * call base function of asking user of Markers-In-A-Row to win the game
+     * sets the correct ai-class corresponding to the gridsize after that
+     * */
     public void setMarkersToWin(){
         setMarkersToWinValue();
         setAiFunc();
@@ -44,7 +50,6 @@ public class SinglePlayerGame extends GameMode {
      * User can at any point type quit to exit
      * If that doesnt happen we take turns to put a marker on the board player vs computer
      * */
-    @Override
     public void runGame(){
         String pos;
         while(!gameInfo.quit && gameBoard.hasSpace()){

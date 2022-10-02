@@ -28,6 +28,7 @@ public class ThreeInARow {
     /**
      * As long as the user want to play we keep going
      * When a game finish/user wants to exit we end up here.
+     * The game itself runs inside SinglePlayer or Multiplayers runGame function
      * */
     public void runLoop(){
         char input;

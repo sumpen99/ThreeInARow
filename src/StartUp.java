@@ -9,5 +9,4 @@ public class StartUp {
         program.setGlobal();
         program.runLoop();
     }
-
 }

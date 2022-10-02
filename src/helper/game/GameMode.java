@@ -26,8 +26,8 @@ public abstract class GameMode implements IGameMode {
     }
 
     /**
-     * The run loop for both Gamemodes who then
-     * overrides run()
+     * The run loop for both Gamemodes who
+     * implements runGame()
      * */
     public void run(){
         gameInfo.shuffleDrawOrder();
@@ -45,6 +45,7 @@ public abstract class GameMode implements IGameMode {
 
     /**
      * Puts things in order for a new game
+     * makes call to gameboard and gameinfo objects
      * */
     public void resetStateOfSession(){
         gameBoard.resetMatrix();
@@ -96,6 +97,9 @@ public abstract class GameMode implements IGameMode {
         else{gameInfo.updateNext();}
     }
 
+    /**
+     * Until we get a vild boardsize we keep asking the question
+     * */
     public void setBoard(){
         int boardSize;
         while(((boardSize = stringIsInt(IOHandler.askForBoardSize())) == -1) || !validBoardSize(boardSize));
@@ -104,6 +108,7 @@ public abstract class GameMode implements IGameMode {
 
     /**
      * Asks user for the amount of markers in a row to win
+     * loop until we get a valid result
      * */
     public void setMarkersToWinValue(){
         int keyValue;
@@ -115,8 +120,8 @@ public abstract class GameMode implements IGameMode {
     }
 
     /**
-     * Validates Boardsize. As long its bigger then 3 it could be anything
-     * but 11 is a nice number
+     * Validates Boardsize.
+     * returns true if value is >= 3 <= 11
      * */
     public boolean validBoardSize(int size){
         return size >= 3 && size <= 11;
@@ -124,11 +129,15 @@ public abstract class GameMode implements IGameMode {
 
     /**
      * The amount of markers in a row to win the game
+     * returns true if the value >= 3 <= columns
      * */
     public boolean validKeyValue(int size){
         return size >= 3 && size <= gameBoard.columns;
     }
 
+    /**
+     * calls gameboard to print the current gameboard to the console
+     * */
     public void drawBoard(){
         gameBoard.drawToScreen();
     }

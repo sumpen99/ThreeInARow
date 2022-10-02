@@ -5,6 +5,7 @@ import helper.matrix.GameBoard;
  * https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/?ref=rp
  *  Implementation of the minimax algorithm
  *  I take zero credit for this one but atleast the evaluate function is custom
+ *  extends gametheory and
  * */
 public class MiniMax extends GameTheory{
     public MiniMax(GameBoard gameBoard, int emptycell, int markervalueai, int markervalueopp, int markersinarow,String cmpName){

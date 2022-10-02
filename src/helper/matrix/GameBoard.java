@@ -4,7 +4,6 @@ import helper.enums.Token;
 import helper.io.IOHandler;
 import helper.struct.BoardPosition;
 import helper.struct.MinMaxPos;
-import java.util.Arrays;
 
 /**
  * Class whose responsibility is too keeping track of the current state of
@@ -13,7 +12,6 @@ import java.util.Arrays;
  * */
 public class GameBoard extends Matrix{
     Token[] tokens = Token.values();
-    int indexTaken;
     BoardPosition newPos;
     public GameBoard(int size){
         super(size);
@@ -162,18 +160,6 @@ public class GameBoard extends Matrix{
      * */
     public int getCurrentMarkersCount(){
         return indexTaken;
-    }
-
-    @Override
-    public void resetMatrix(){
-        Arrays.fill(m,0);
-        indexTaken = 0;
-    }
-
-    @Override
-    public void setValue(int index,int value){
-        m[index] = value;
-        indexTaken++;
     }
 
 }

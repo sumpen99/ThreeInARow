@@ -1,5 +1,9 @@
 package helper.struct;
 
+/**
+ * Struct used by GameMode classes to validate and get a new pos
+ * to put a marker on the board
+ * */
 public class BoardPosition {
     public int row,col;
     public boolean validMove;
