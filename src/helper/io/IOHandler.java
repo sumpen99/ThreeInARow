@@ -82,12 +82,6 @@ public class IOHandler {
         logToFile("Start Of Program");
     }
 
-    /**
-     * I do realize this is not needed but i like to have
-     * different print methods for int/string/float/boolean etc
-     * If you want to do something different with a int before printing you can just look this method
-     * up and dont infect other printCalls
-     * */
     public static void printInt(int num){
         System.out.printf("%d", num);
     }
