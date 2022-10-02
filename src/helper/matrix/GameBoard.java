@@ -4,9 +4,13 @@ import helper.enums.Token;
 import helper.io.IOHandler;
 import helper.struct.BoardPosition;
 import helper.struct.MinMaxPos;
-
 import java.util.Arrays;
 
+/**
+ * Class whose responsibility is too keeping track of the current state of
+ * the game in terms of markers on the board and whos winning or not
+ * extends matrix
+ * */
 public class GameBoard extends Matrix{
     Token[] tokens = Token.values();
     int indexTaken;
@@ -35,6 +39,7 @@ public class GameBoard extends Matrix{
 
     /**
      * If the matrix has free space,
+     * returns true or false
      * */
     public boolean hasSpace(){
         return indexTaken < size;
@@ -72,6 +77,7 @@ public class GameBoard extends Matrix{
     /**
      * Indeed it looks alot like searchMatrix and with some modifications you could probably
      * remove this one. But for now its easier to have both
+     * returns true if found else false
      * */
     public boolean searchValidMoves(int row,int col,int markerValue,int markersInARow){
         int sum;
@@ -113,6 +119,7 @@ public class GameBoard extends Matrix{
 
     /**
      * Starting point for minimaxtheory
+     * returns true if found else false
      * */
     public boolean findWinningPatter(int markerValue,int markersInARow){
         int row = 0,col;

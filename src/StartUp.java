@@ -1,6 +1,6 @@
 import program.ThreeInARow;
 /**
- * Program of Three-In-A-Row
+ * Three-In-A-Row
  * */
 public class StartUp {
     public static void main(String[] args){

@@ -19,6 +19,9 @@ public class IOHandler {
     static boolean isSet;
     Scanner scannerIn;
 
+    /**
+     * Initialize a static instance of self
+     * */
     public IOHandler(){
         assert !IOHandler.isSet :"IOHandler is already set!";
         IOHandler.setInstance();
@@ -136,7 +139,8 @@ public class IOHandler {
     }
 
     /**
-     * prints gameMenu
+     * prints gameMenu and asks for gamemode
+     * returns string of nextline
      * */
     public static String printGameMenu(){
         System.out.println("Welcome for A Game Of Three In A Row!");
@@ -157,8 +161,8 @@ public class IOHandler {
     }
 
     /**
-     * Asks for player name and return a string
-     * If its not valid we come back here quickly
+     * Asks for player name
+     * returns string of nextline
      * */
     public static String askForPlayerName(int index){
         System.out.printf("Enter Name For Player %d%n", index);
@@ -177,6 +181,7 @@ public class IOHandler {
 
     /**
      * Asks for new position
+     * returns string of nextline
      * */
     public static String askForNewPosition(GamePlayer player){
         System.out.printf("Your Move %s%n", player.name);
@@ -207,6 +212,7 @@ public class IOHandler {
 
     /**
      * Asks for boardsize
+     * returns string of nextline
      * */
     public static String askForBoardSize(){
         System.out.println("Enter The Size Of Board You Would Like To Play (min 3 max 11)");
@@ -216,6 +222,7 @@ public class IOHandler {
 
     /**
      * Asks for markers-in-a-row to win
+     * returns string of nextline
      * */
     public static String askForKeyValue(int maxValue){
         System.out.println("You Can Increase The Game From A Min Of 3 In A Row Up To A Max of %d Markers In A Row".formatted(maxValue));

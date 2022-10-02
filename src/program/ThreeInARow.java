@@ -7,7 +7,7 @@ import helper.struct.SMDateTime;
 import static helper.methods.CommonMethods.evaluateInput;
 
 /**
- * The main loop of the program
+ * The main class of the program
  * The user can choose from different gamemodes,gridsize and markers in a row
  * Supported grids are 3*3 -> 10*10
  * Supported Markers-In-A-Row follows grid size with a minimum of 3
@@ -43,10 +43,18 @@ public class ThreeInARow {
         }while(!exit(input));
     }
 
+    /**
+     * returns first char of string
+     * 0 if string is empty
+     * */
     char startGame(){
         return evaluateInput(IOHandler.printGameMenu());
     }
 
+    /**
+     * if first char of string is 1 or 2 we initialize
+     * a new gamemode. if not returns false and we try again
+     * */
     boolean evaluateGameMode(char c){
         boolean result = false;
         if(c == '1'){
@@ -60,6 +68,9 @@ public class ThreeInARow {
         return result;
      }
 
+     /**
+      * if user inputs q we exit
+      * */
     boolean exit(char c){
         return c == 'q';
     }
