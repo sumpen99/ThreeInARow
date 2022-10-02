@@ -18,7 +18,6 @@ public class IOHandler {
     static IOHandler self;
     static boolean isSet;
     Scanner scannerIn;
-    String runningOS;
 
     public IOHandler(){
         assert !IOHandler.isSet :"IOHandler is already set!";
@@ -29,11 +28,16 @@ public class IOHandler {
         IOHandler.isSet = true;
     }
 
+    /**
+     * This is the only reason we are setting a Global Instance
+     * This way we can use it everywhere but we only haft to
+     * initialize one instance of the Scanner class
+     * I think thats pretty neat but maybe its unnecessary
+     * */
     public static void initIOHandler(){
         if(self == null){
             self = new IOHandler();
             self.scannerIn = new Scanner(System.in);
-            self.runningOS = System.getProperty("os.name");
         }
     }
 
@@ -51,6 +55,9 @@ public class IOHandler {
 
     }
 
+    /**
+     * used to log errors inside ./resources/files/log/error/error.log
+     * */
     public static void logToFile(String msg){
         PrintWriter writer;
         String out = "%s -> %s".formatted(SMDateTime.getDateTime(),msg);
@@ -65,8 +72,21 @@ public class IOHandler {
         }
     }
 
+    /**
+     * used for testing
+     * */
     public static void testPathToLogFile(){
         logToFile("Start Of Program");
+    }
+
+    /**
+     * I do realize this is not needed but i like to have
+     * different print methods for int/string/float/boolean etc
+     * If you want to do something different with a int before printing you can just look this method
+     * up and dont infect other printCalls
+     * */
+    public static void printInt(int num){
+        System.out.printf("%d", num);
     }
 
     public static void printBoolean(boolean b){
@@ -79,10 +99,6 @@ public class IOHandler {
 
     public static void printChar(char c){
         System.out.printf("%c",c);
-    }
-
-    public static void printInt(int num){
-        System.out.printf("%d", num);
     }
 
     public static void printFloat(float num){
@@ -104,6 +120,9 @@ public class IOHandler {
         }*/
     }
 
+    /**
+     * prints result of last game
+     * */
     public static void printGameInfo(GameInfo gameInfo){
         if(gameInfo.winner){
             printString("Game Over And We Have A Winner  :: %s\n".formatted(gameInfo.lastWinner.name));
@@ -116,6 +135,9 @@ public class IOHandler {
 
     }
 
+    /**
+     * prints gameMenu
+     * */
     public static String printGameMenu(){
         System.out.println("Welcome for A Game Of Three In A Row!");
         System.out.println("Enter (1) SinglePlayer (2) MultiPlayer or (q) Exit");
@@ -123,35 +145,56 @@ public class IOHandler {
         return self.scannerIn.nextLine();
     }
 
+    /**
+     * Welcomes player
+     * */
     public static void welcomePlayers(GameInfo gameInfo){
         System.out.println("Our Contestants Are:");
         System.out.println(gameInfo.players[0].name);
         System.out.println(gameInfo.players[1].name);
+        System.out.println("(If yout want to end game type quit instead of new pos)");
         printString("\n");
     }
 
+    /**
+     * Asks for player name and return a string
+     * If its not valid we come back here quickly
+     * */
     public static String askForPlayerName(int index){
         System.out.printf("Enter Name For Player %d%n", index);
         System.out.print("Enter: ");
         return self.scannerIn.nextLine();
     }
 
+    /**
+     * Asks for new game
+     * */
     public static char askForNewGame(){
         System.out.printf("New Game? (y) (n)\n");
         System.out.print("Enter: ");
         return evaluateInput(self.scannerIn.nextLine());
     }
 
+    /**
+     * Asks for new position
+     * */
     public static String askForNewPosition(GamePlayer player){
         System.out.printf("Your Move %s%n", player.name);
         System.out.print("Enter (Row Col): ");
         return self.scannerIn.nextLine();
     }
 
+    /**
+     * Symbolic print to ask computer for a value
+     * */
     public static void askComputerForValue(String name) {
         System.out.printf("Your Move %s%n", name);
     }
 
+    /**
+     * When the computer is thinking we are printing dots
+     * with some sleeping time in between
+     * */
     public static void printDot(){
         printChar('.');
         try{
@@ -162,18 +205,30 @@ public class IOHandler {
         }
     }
 
+    /**
+     * Asks for boardsize
+     * */
     public static String askForBoardSize(){
         System.out.println("Enter The Size Of Board You Would Like To Play (min 3 max 11)");
         System.out.print("Enter: ");
         return self.scannerIn.nextLine();
     }
 
+    /**
+     * Asks for markers-in-a-row to win
+     * */
     public static String askForKeyValue(int maxValue){
         System.out.println("You Can Increase The Game From A Min Of 3 In A Row Up To A Max of %d Markers In A Row".formatted(maxValue));
         System.out.print("Enter: ");
         return self.scannerIn.nextLine();
     }
 
+    /**
+     * prints the current state of the board
+     * col 0 -> maxColumns
+     * row 0 -> maxRows
+     * Input from the user becomes index inside matrix
+     * */
     public static void printCurrentBoard(GameBoard m){
         //clearScreen();
         int x,y = 0;
@@ -194,6 +249,10 @@ public class IOHandler {
         }
     }
 
+    /**
+     * Prints row index
+     * If we have double digits we shift a bit
+     * */
     public static void printRowIndex(int value){
         if(value < 10)printString(" %d  ".formatted(value));
         else printString(" %d ".formatted(value));

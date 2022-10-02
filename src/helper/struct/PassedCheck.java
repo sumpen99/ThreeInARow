@@ -1,5 +1,11 @@
 package helper.struct;
 
+/**
+ * Simple struct to keep track on result in different
+ * methods.
+ * If you want an boolean result of a try catch but also the string message
+ * Can be used Global
+ * */
 public class PassedCheck {
     public boolean passed;
     public int iNum;
@@ -26,4 +32,9 @@ public class PassedCheck {
     }
 
     public PassedCheck(){}
+
+    public void clear(){
+        passed = false;
+        message = "";
+    }
 }

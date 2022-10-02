@@ -1,7 +1,11 @@
 package helper.threading;
 import helper.interfaces.IThreading;
 
-
+/**
+ * Starts a new thread by taking a class object who implements IThreading
+ * and executes function heavyduty
+ * GameTheory implements IThreading
+ * */
 public class ThreadHandler{
     public static Thread t1;
     public static void executeNewThread(IThreading obj){

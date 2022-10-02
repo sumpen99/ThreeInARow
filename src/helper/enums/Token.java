@@ -1,5 +1,9 @@
 package helper.enums;
 
+/**
+ * Enum that we use to print the correct marker
+ * based on who played it
+ * */
 public enum Token {
     TOKEN_EMPTY(' '),
     TOKEN_PLAYER_ONE('O'),

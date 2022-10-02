@@ -3,21 +3,35 @@ import helper.matrix.GameBoard;
 
 /**
  *
- *  COURTESY OF THE INTERNET
- *  IMPLEMENTATION OF MINIMAX
- *
+ *  Courtesy of the internet
+ *  Implementation of the minimax algorithm
+ *  Could be extended by adding alpha beta pruning
+ *  but for three in a row on a 3*3 grid it doesnt seem necessary
+ *  On grids larger then 3 we dont use it anyway
  * */
 public class MiniMax extends GameTheory{
     public MiniMax(GameBoard gameBoard, int emptycell, int markervalueai, int markervalueopp, int markersinarow,String cmpName){
         super(gameBoard,emptycell,markervalueai,markervalueopp,markersinarow,cmpName);
     }
 
+    /**
+     * This one could/should be rewritten
+     * We test the same thing twice but with different markers
+     * Should look for both in one call but I had already written
+     * findWinningPattern so....
+     * */
     int evaluate() {
         if(board.findWinningPatter(markerValueAI,markersInARow))return 10;
         if(board.findWinningPatter(markerValueOpp,markersInARow))return -10;
         return 0;
     }
 
+    /**
+     * And here is the heart of the algorithm
+     * Plays the game recursive as Minimizer/Maximizer
+     * until the game is won/grid is full
+     * returns the best value from the bottom up
+     * */
     int miniMax(int depth,boolean isMax){
         int score = evaluate(),row,col;
 
@@ -55,6 +69,10 @@ public class MiniMax extends GameTheory{
         }
     }
 
+    /**
+     * Calls minimax for every free spot in the matrix
+     * to evaluate best possible new move
+     * */
     public int findBestMove(){
         int row = 0,col,bestValue = -1000,moveValue;
         bestPos.row = -1;

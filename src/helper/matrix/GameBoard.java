@@ -152,6 +152,13 @@ public class GameBoard extends Matrix{
         }
     }
 
+    /**
+     * Returns count of current markers put on gameboard
+     * */
+    public int getCurrentMarkersCount(){
+        return indexTaken;
+    }
+
     @Override
     public void resetMatrix(){
         Arrays.fill(m,0);

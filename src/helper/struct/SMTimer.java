@@ -1,5 +1,9 @@
 package helper.struct;
 
+/**
+ * Simple class to time stuff
+ * Like for ex. the running time of a new game
+ * */
 public class SMTimer {
     boolean running;
     long clockBegin,clockEnd,timePassed;

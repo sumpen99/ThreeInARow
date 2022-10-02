@@ -2,6 +2,10 @@ package helper.methods;
 
 import helper.struct.PassedCheck;
 
+/**
+ * Class to handle some methods
+ * we can use on different places in the program
+ * */
 public class CommonMethods {
 
     public static int getRandomInt(int maxValue){

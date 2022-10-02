@@ -3,6 +3,10 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Global struct to get some time and date.
+ * Nice for logging
+ * */
 public class SMDateTime {
     static SMDateTime self;
     static boolean isSet;

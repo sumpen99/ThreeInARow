@@ -1,5 +1,8 @@
 package helper.player;
 
+/**
+ * Player class
+ * */
 public class GamePlayer{
     public String name;
     public int winStreak,marker,lastMarkerIndex;

@@ -1,12 +1,15 @@
 package helper.game;
+import helper.ai.GameTheory;
 import helper.ai.MiniMax;
 import helper.ai.FollowTheory;
-import helper.interfaces.IGameTheory;
 import helper.io.IOHandler;
 import helper.player.GamePlayer;
 
+/**
+ * Extends GameMode but with an Ai-Computer as player2
+ * */
 public class SinglePlayerGame extends GameMode {
-    IGameTheory gameTheory;
+    GameTheory gameTheory;
     final String cmpName = "Hal";
 
     @Override
@@ -26,11 +29,21 @@ public class SinglePlayerGame extends GameMode {
 
     }
 
+    /**
+     * If the board is a standard three in a row we use MiniMax
+     * Else we have a custom FollowTheory wich works on large boards and any kind of
+     * markers but you could argue its not DeepBlue smart
+     * */
     void setAiFunc(){
         if(gameBoard.columns == 3)gameTheory = new MiniMax(gameBoard,0,2,1,3,cmpName);
         else gameTheory = new FollowTheory(gameBoard,0,2,1,gameInfo.markersToWin,cmpName);
     }
 
+    /**
+     * Until we have a game to play it keeps going
+     * User can at any point type quit to exit
+     * If that doesnt happen we take turns to put a marker on the board player vs computer
+     * */
     @Override
     public void runGame(){
         String pos;

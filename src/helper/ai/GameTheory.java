@@ -6,6 +6,11 @@ import helper.matrix.GameBoard;
 import helper.struct.BoardPosition;
 import helper.threading.ThreadHandler;
 
+
+/**
+ * Abstract class to steer the computer. Extended by MiniMaxTheory and FollowTheory
+ * Implements Ithreading
+ * */
 public abstract class GameTheory implements IGameTheory, IThreading {
     GameBoard board;
     BoardPosition bestPos;

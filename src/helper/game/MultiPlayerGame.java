@@ -2,6 +2,10 @@ package helper.game;
 import helper.io.IOHandler;
 import helper.player.GamePlayer;
 
+/**
+ * Multiplayer GameMode
+ * Overrides three methods
+ * */
 public class MultiPlayerGame extends GameMode{
 
     @Override
@@ -20,6 +24,11 @@ public class MultiPlayerGame extends GameMode{
         setMarkersToWinValue();
     }
 
+    /**
+     * Until we have a game to play it keeps going
+     * User can at any point type quit to exit
+     * If that doesnt happen we take turns to put a marker on the board player vs player
+     * */
     @Override
     public void runGame(){
         String pos;

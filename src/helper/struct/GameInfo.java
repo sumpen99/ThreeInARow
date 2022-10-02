@@ -2,6 +2,9 @@ package helper.struct;
 import helper.player.GamePlayer;
 import static helper.methods.CommonMethods.getRandomInt;
 
+/**
+ * Struct with everything the Gamemode needs to function
+ * */
 public class GameInfo {
     public SMTimer timer;
     public boolean quit,winner;
