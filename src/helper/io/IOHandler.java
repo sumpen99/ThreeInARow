@@ -8,6 +8,12 @@ import java.io.*;
 import java.util.Scanner;
 import static helper.methods.CommonMethods.evaluateInput;
 
+/**
+ *
+ * All input/output is handled by this class
+ * clear screen function does not work in the terminal of ide
+ *
+ * */
 public class IOHandler {
     static IOHandler self;
     static boolean isSet;
@@ -169,7 +175,7 @@ public class IOHandler {
     }
 
     public static void printCurrentBoard(GameBoard m){
-        clearScreen();
+        //clearScreen();
         int x,y = 0;
         printCellStart();
         for(x = 0;x<m.columns;x++){printColBase(x);}

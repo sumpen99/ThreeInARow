@@ -4,7 +4,6 @@ import helper.ai.FollowTheory;
 import helper.interfaces.IGameTheory;
 import helper.io.IOHandler;
 import helper.player.GamePlayer;
-import helper.threading.ThreadHandler;
 
 public class SinglePlayerGame extends GameMode {
     IGameTheory gameTheory;

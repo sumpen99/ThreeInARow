@@ -5,6 +5,8 @@ import helper.matrix.GameBoard;
 import helper.player.GamePlayer;
 import helper.struct.BoardPosition;
 import helper.struct.GameInfo;
+import helper.struct.PassedCheck;
+
 import static helper.methods.CommonMethods.stringIsInt;
 import static helper.methods.CommonMethods.verifyNewPos;
 
@@ -12,13 +14,16 @@ public abstract class GameMode implements IGameMode {
     GameBoard gameBoard;
     BoardPosition newPos;
     GameInfo gameInfo;
+    PassedCheck validInput;
 
     public GameMode(){
         newPos = new BoardPosition();
         gameInfo = new GameInfo();
+        validInput = new PassedCheck();
     }
 
     public void run(){
+        gameInfo.shuffleDrawOrder();
         gameInfo.timer.startClock();
         runGame();
         drawBoard();
@@ -61,7 +66,7 @@ public abstract class GameMode implements IGameMode {
         gameInfo.getCurrentPlayer().lastMarkerIndex = index;
         gameBoard.setValue(index,value);
         if(gameBoard.findWinningPatter(gameInfo.getCurrentPlayer().marker,gameInfo.markersToWin)){gameInfo.setWinner();}
-        else{gameInfo.upNext++;}
+        else{gameInfo.updateNext();}
     }
 
     public void setBoard(){
@@ -92,12 +97,17 @@ public abstract class GameMode implements IGameMode {
     }
 
     public boolean validBoardPosition(String pos){
-        int[] tryPos = verifyNewPos(pos);
+        int[] tryPos = verifyNewPos(pos,validInput);
         int index;
         if(tryPos != null && gameBoard.validIndex((index=gameBoard.getIndex(tryPos[0],tryPos[1]))) && gameBoard.freeIndex(index)){
             newPos.row = tryPos[0];
             newPos.col = tryPos[1];
             return true;
+        }
+        else{
+            if(validInput.message.equals("quit")){
+                gameInfo.quit = true;
+            }
         }
         return false;
     }

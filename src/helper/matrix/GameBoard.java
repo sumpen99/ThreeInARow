@@ -128,10 +128,10 @@ public class GameBoard extends Matrix{
 
     /**
      * Starting point for the followtheory algorithm
-     * Its simplistic and searches for the the pattern with
-     * most markers in a row/line/diagonal. It doesnt matter
-     * wich player has it but when found it follows
-     * by putting a marker next to it.
+     * Its simplistic and searches for the pattern with
+     * most markers in a row/line/diagonal. If player scores higher
+     * then computer it follows player otherwise it will extend
+     * self
      * */
     public void lookForNewPosition(int markersInARow, int markerToCheck, int bestMove, MinMaxPos bestPos){
         int markersToWin = markersInARow-1,marker;

@@ -4,7 +4,8 @@ public class MinMaxPos {
     public int index,valueHigh;
 
     public void reset(){
-        valueHigh = 0;
+        index = 0;
+        valueHigh = -1;
     }
 
 }

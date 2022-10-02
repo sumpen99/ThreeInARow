@@ -1,5 +1,4 @@
 package helper.ai;
-import helper.io.IOHandler;
 import helper.matrix.GameBoard;
 import helper.struct.MinMaxPos;
 

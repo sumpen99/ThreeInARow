@@ -1,5 +1,7 @@
 package helper.methods;
 
+import helper.struct.PassedCheck;
+
 public class CommonMethods {
 
     public static int getRandomInt(int maxValue){
@@ -17,7 +19,7 @@ public class CommonMethods {
         }
     }
 
-    public static int[] verifyNewPos(String s){
+    public static int[] verifyNewPos(String s, PassedCheck result){
         try{
             int row,col;
             String[] pos = s.split(" ");
@@ -26,6 +28,8 @@ public class CommonMethods {
             return new int[]{row,col};
         }
         catch( Exception err){
+            result.passed = false;
+            result.message = s;
             return null;
         }
     }
