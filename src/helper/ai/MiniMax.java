@@ -4,6 +4,7 @@ import helper.matrix.GameBoard;
 /**
  * https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/?ref=rp
  *  Implementation of the minimax algorithm
+ *  I take zero credit for this one but atleast the evaluate function is custom
  * */
 public class MiniMax extends GameTheory{
     public MiniMax(GameBoard gameBoard, int emptycell, int markervalueai, int markervalueopp, int markersinarow,String cmpName){
@@ -11,10 +12,7 @@ public class MiniMax extends GameTheory{
     }
 
     /**
-     * This one could/should be rewritten
-     * We test the same thing twice but with different markers
-     * Should look for both in one call but I had already written
-     * findWinningPattern so....
+     * Searches the matrix for a winning pattern
      * returns 10 if computer wins else -10
      * */
     int evaluate() {
