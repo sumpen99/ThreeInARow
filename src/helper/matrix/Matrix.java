@@ -3,10 +3,8 @@ import helper.interfaces.IMatrix;
 
 /**
  * Abstract class Matrix
- * Really no need for it. Everything could have been in Gameboard
- * but atleast we get rid of some methods.
- * It has a one-dimensional array
- * */
+ *
+ *  */
 public abstract class Matrix implements IMatrix {
     public int size,rows,columns;
     public int[] m;

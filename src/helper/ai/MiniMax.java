@@ -2,8 +2,6 @@ package helper.ai;
 import helper.matrix.GameBoard;
 
 /**
- *
- *  Courtesy of the internet
  *  Implementation of the minimax algorithm
  *  Could be extended by adding alpha beta pruning
  *  but for three in a row on a 3*3 grid it doesnt seem necessary
@@ -27,7 +25,6 @@ public class MiniMax extends GameTheory{
     }
 
     /**
-     * And here is the heart of the algorithm
      * Plays the game recursive as Minimizer/Maximizer
      * until the game is won/grid is full
      * returns the best value from the bottom up
@@ -71,7 +68,7 @@ public class MiniMax extends GameTheory{
 
     /**
      * Calls minimax for every free spot in the matrix
-     * to evaluate best possible new move
+     * to evaluate best possible next move
      * */
     public int findBestMove(){
         int row = 0,col,bestValue = -1000,moveValue;

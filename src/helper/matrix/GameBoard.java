@@ -14,11 +14,9 @@ import java.util.Arrays;
 public class GameBoard extends Matrix{
     Token[] tokens = Token.values();
     int indexTaken;
-    int[] moveToIndex;
     BoardPosition newPos;
     public GameBoard(int size){
         super(size);
-        moveToIndex = new int[8];
         newPos = new BoardPosition();
     }
 

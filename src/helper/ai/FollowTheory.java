@@ -3,9 +3,10 @@ import helper.matrix.GameBoard;
 import helper.struct.MinMaxPos;
 
 /**
- * NOT PARTICULARY SMART BUT ATLEAST IT PROVIDES THE POSSIBILITY
- * FOR PLAYER VS COMPUTER WITH PLAYERS CHOICE OF GRIDSIZE AND MARKERS-IN-A-ROW
- * It will win if the user is even dumber
+ * To support player vs computer on grids > 3*3 and markers in a row > 3 I choose
+ * this implementation of an "ai". The only smart move it takes is to follow
+ * the path with most markers in a row/line/diagonal with a free space next to it.
+ * Hence the name FollowTheory...
  * */
 public class FollowTheory extends GameTheory {
     MinMaxPos bestPos;
@@ -16,7 +17,8 @@ public class FollowTheory extends GameTheory {
 
     /**
      * Starts of by searching the top result for the computer. if the user
-     * cant bet that it will choose the computers next move. Else it will follow user
+     * cant bet that value it will be the computers next move, else it follows user path
+     * if no marker is on the board it places it in the middle
      * */
     @Override
     public int findBestMove(){
